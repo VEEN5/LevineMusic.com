@@ -202,3 +202,7 @@
     opacity: 0.1;
   }
 }
+
+.text-balance {
+  text-wrap: balance;
+}

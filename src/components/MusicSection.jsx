@@ -161,25 +161,25 @@ export default function MusicSection({ content }) {
         <div className="grain-layer absolute inset-0 opacity-10" />
       </div>
 
-      <div className="section-shell relative z-10 mx-auto max-w-4xl text-center">
+      <div className="section-shell relative z-10 mx-auto max-w-5xl text-center">
         <p className="section-kicker justify-center before:hidden text-stone-200">Music</p>
         <h2 className="section-title mx-auto text-center">{content.title}</h2>
-        <p className="section-copy text-soft-glow mx-auto">{content.description}</p>
+        <p className="section-copy text-soft-glow mx-auto max-w-3xl text-balance">{content.description}</p>
 
-        <div className="mt-10 overflow-hidden rounded-[1.9rem] border border-white/10 bg-black/45 p-4 shadow-[0_28px_90px_rgba(0,0,0,0.4)] sm:p-6">
+        <div className="mt-12 overflow-hidden rounded-[2rem] border border-white/10 bg-black/35 p-4 shadow-[0_28px_90px_rgba(0,0,0,0.34)] backdrop-blur-md sm:p-6">
           <div className="grid gap-6 md:grid-cols-[0.85fr_1.15fr] md:items-center">
-            <div className="overflow-hidden rounded-[1.5rem] border border-white/10 bg-black/50">
+            <div className="overflow-hidden rounded-[1.5rem] border border-white/10 bg-black/45 shadow-[0_18px_50px_rgba(0,0,0,0.28)]">
               <img
                 src={content.coverArt}
                 alt={`${content.title} cover art`}
                 loading="lazy"
                 decoding="async"
-                className="aspect-square w-full object-cover grayscale"
+                className="aspect-square w-full object-cover"
               />
             </div>
 
-            <div className="rounded-[1.5rem] border border-white/10 bg-black/35 p-3">
-              <div className="mb-3 flex items-center justify-between gap-3 rounded-[1rem] border border-white/10 bg-black/45 px-4 py-3 text-left">
+            <div className="rounded-[1.5rem] border border-white/10 bg-black/28 p-3 shadow-[0_12px_35px_rgba(0,0,0,0.2)]">
+              <div className="mb-3 flex items-center justify-between gap-3 rounded-[1rem] border border-white/10 bg-black/40 px-4 py-3 text-left">
                 <div className="flex items-center gap-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-stone-100">
                     <PlatformIcon label={activePlatform?.label} />
@@ -212,7 +212,7 @@ export default function MusicSection({ content }) {
               />
             </div>
           </div>
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
             {content.platformLinks.map((platform) => (
               <button
                 key={platform.label}

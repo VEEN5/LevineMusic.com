@@ -82,7 +82,7 @@ export default function Hero({ content }) {
   }
 
   return (
-    <section className="relative flex min-h-screen items-center justify-center px-5 py-10 sm:px-8">
+    <section className="relative flex min-h-screen items-center justify-center overflow-hidden px-5 py-10 sm:px-8">
       <div className="absolute inset-0">
         {content.heroImage ? (
           <img
@@ -109,15 +109,16 @@ export default function Hero({ content }) {
           </video>
         ) : null}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.06),transparent_30%),linear-gradient(180deg,rgba(0,0,0,0.16),rgba(0,0,0,0.42))]" />
+        <div className="absolute inset-x-0 bottom-0 h-32 bg-[linear-gradient(180deg,transparent,rgba(2,2,2,0.82))]" />
         <div className="grain-layer absolute inset-0" />
       </div>
 
-      <div className="relative z-10 mx-auto flex max-w-3xl flex-col items-center text-center">
-        <h1 className="text-hero-glow reveal-up relative font-serif text-5xl font-bold uppercase tracking-[0.12em] text-white sm:text-6xl md:text-7xl">
-          <span className="relative inline-block px-2 pb-8 sm:pb-10">
+      <div className="relative z-10 mx-auto flex max-w-4xl flex-col items-center pt-10 text-center sm:pt-14">
+        <h1 className="text-hero-glow reveal-up relative font-serif text-6xl font-bold uppercase tracking-[0.1em] text-white sm:text-7xl md:text-8xl">
+          <span className="relative inline-block px-2 pb-9 sm:pb-11">
             <span className="relative z-10">{content.artistName}</span>
             <span
-              className="hero-reflection pointer-events-none absolute left-1/2 top-[88%] whitespace-nowrap text-[0.54em] font-bold tracking-[0.34em]"
+              className="hero-reflection pointer-events-none absolute left-1/2 top-[88%] whitespace-nowrap text-[0.5em] font-bold tracking-[0.38em]"
               style={{ color: "#d62f2f", opacity: 0.95, textShadow: "0 0 18px rgba(214, 47, 47, 0.35)" }}
             >
               ENIVEL
@@ -133,10 +134,10 @@ export default function Hero({ content }) {
             {isMuted ? "Tap for Sound" : "Sound On"}
           </button>
         ) : null}
-        <p className="text-soft-glow reveal-up text-[0.74rem] font-bold uppercase tracking-[0.45em] text-stone-200">
+        <p className="text-soft-glow reveal-up text-[0.76rem] font-bold uppercase tracking-[0.52em] text-stone-200">
           just speaking my mind
         </p>
-        <p className="text-soft-glow reveal-up reveal-delay-2 mt-5 text-xl font-semibold text-stone-100 sm:text-2xl">
+        <p className="text-soft-glow reveal-up reveal-delay-2 mt-5 max-w-2xl text-2xl font-semibold text-stone-100 sm:text-3xl">
           {content.heroLine}
         </p>
         <a
@@ -144,11 +145,11 @@ export default function Hero({ content }) {
           target="_blank"
           rel="noopener noreferrer external"
           aria-label="Listen now"
-          className="button-primary reveal-up reveal-delay-3 mt-10"
+          className="button-primary reveal-up reveal-delay-3 mt-10 min-w-[12rem]"
         >
           Listen Now
         </a>
-        <div className="reveal-up reveal-delay-3 mt-6 flex flex-wrap items-center justify-center gap-3">
+        <div className="reveal-up reveal-delay-3 mt-7 flex max-w-3xl flex-wrap items-center justify-center gap-3">
           {content.platformLinks.map((platform) => (
             <a
               key={platform.label}
@@ -161,7 +162,7 @@ export default function Hero({ content }) {
             </a>
           ))}
         </div>
-        <div className="reveal-up reveal-delay-3 mt-8 flex flex-wrap items-center justify-center gap-3">
+        <div className="reveal-up reveal-delay-3 mt-7 flex flex-wrap items-center justify-center gap-3">
           {content.contact.socialLinks.map((social) => (
             <a
               key={social.label}
