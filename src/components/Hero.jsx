@@ -6,60 +6,24 @@ export default function Hero({ content }) {
   const [showVideo, setShowVideo] = useState(false);
 
   useEffect(() => {
-    const desktopQuery = window.matchMedia("(min-width: 1024px)");
     const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-    let idleId = null;
-    let timeoutId = null;
 
     function updateVideoMode() {
-      const connectionType = String(connection?.effectiveType || "").toLowerCase();
-      const shouldAvoidVideo =
-        !desktopQuery.matches ||
-        reducedMotionQuery.matches ||
-        Boolean(connection?.saveData) ||
-        (connectionType && connectionType !== "4g");
-
-      if (!content.heroVideo || shouldAvoidVideo) {
-        setShowVideo(false);
-        return;
-      }
-
-      setShowVideo(false);
-
-      const enableVideo = () => setShowVideo(true);
-
-      if ("requestIdleCallback" in window) {
-        idleId = window.requestIdleCallback(enableVideo, { timeout: 1800 });
-      } else {
-        timeoutId = window.setTimeout(enableVideo, 1200);
-      }
+      setShowVideo(Boolean(content.heroVideo) && !reducedMotionQuery.matches);
     }
 
     updateVideoMode();
 
-    if (desktopQuery.addEventListener) {
-      desktopQuery.addEventListener("change", updateVideoMode);
+    if (reducedMotionQuery.addEventListener) {
       reducedMotionQuery.addEventListener("change", updateVideoMode);
     } else {
-      desktopQuery.addListener(updateVideoMode);
       reducedMotionQuery.addListener(updateVideoMode);
     }
 
     return () => {
-      if (idleId && "cancelIdleCallback" in window) {
-        window.cancelIdleCallback(idleId);
-      }
-
-      if (timeoutId) {
-        window.clearTimeout(timeoutId);
-      }
-
-      if (desktopQuery.removeEventListener) {
-        desktopQuery.removeEventListener("change", updateVideoMode);
+      if (reducedMotionQuery.removeEventListener) {
         reducedMotionQuery.removeEventListener("change", updateVideoMode);
       } else {
-        desktopQuery.removeListener(updateVideoMode);
         reducedMotionQuery.removeListener(updateVideoMode);
       }
     };
@@ -101,7 +65,7 @@ export default function Hero({ content }) {
             muted
             loop
             playsInline
-            preload="none"
+            preload="metadata"
             poster={content.heroImage || undefined}
             className="absolute inset-0 h-full w-full object-cover opacity-85"
           >
