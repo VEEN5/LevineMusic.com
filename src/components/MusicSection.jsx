@@ -249,7 +249,7 @@ export default function MusicSection({ content }) {
             <div className="grid gap-4 md:grid-cols-3">
               {content.snippets?.items?.map((item) => (
                 <article
-                  key={item.title}
+                  key={item.label}
                   className="rounded-[1.5rem] border border-white/10 bg-black/35 p-6 text-left shadow-[0_12px_35px_rgba(0,0,0,0.2)]"
                 >
                   <p className="text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-stone-400">
