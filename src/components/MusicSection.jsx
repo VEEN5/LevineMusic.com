@@ -63,6 +63,7 @@ function PlatformIcon({ label }) {
 export default function MusicSection({ content }) {
   const [activePlatformLabel, setActivePlatformLabel] = useState(content.platformLinks[0]?.label || "Spotify");
   const [showVideo, setShowVideo] = useState(false);
+  const [activeView, setActiveView] = useState("release");
   const activePlatform = useMemo(() => {
     return (
       content.platformLinks.find((platform) => platform.label === activePlatformLabel) ||
@@ -72,6 +73,8 @@ export default function MusicSection({ content }) {
 
   const embedUrl = activePlatform ? getEmbedUrl(activePlatform) : content.embedUrl;
   const embedHeight = getEmbedHeight(activePlatform?.label);
+  const currentBackgroundImage =
+    activeView === "snippets" ? content.snippets?.backgroundImage || content.backgroundImage : content.backgroundImage;
 
   useEffect(() => {
     const desktopQuery = window.matchMedia("(min-width: 1024px)");
@@ -137,7 +140,7 @@ export default function MusicSection({ content }) {
     <section id="music" className="relative overflow-hidden py-16 sm:py-20">
       <div className="absolute inset-0">
         <img
-          src={content.backgroundImage}
+          src={currentBackgroundImage}
           alt=""
           aria-hidden="true"
           loading="lazy"
@@ -151,7 +154,7 @@ export default function MusicSection({ content }) {
             loop
             playsInline
             preload="none"
-            poster={content.backgroundImage}
+            poster={currentBackgroundImage}
             className="absolute inset-0 h-full w-full object-cover opacity-72"
           >
             <source src={content.backgroundVideo} type="video/mp4" />
@@ -162,73 +165,138 @@ export default function MusicSection({ content }) {
       </div>
 
       <div className="section-shell relative z-10 mx-auto max-w-5xl text-center">
-        <p className="section-kicker justify-center before:hidden text-stone-200">Music</p>
-        <h2 className="section-title mx-auto text-center">{content.title}</h2>
-        <p className="section-copy text-soft-glow mx-auto max-w-3xl text-balance">{content.description}</p>
+        <div className="flex items-center justify-center gap-4">
+          {activeView === "snippets" ? (
+            <button
+              type="button"
+              onClick={() => setActiveView("release")}
+              aria-label="Go back to release"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-black/30 text-white transition hover:border-white/30 hover:bg-black/45"
+            >
+              <span className="text-xl leading-none">&#8592;</span>
+            </button>
+          ) : null}
+          <div>
+            <p className="section-kicker justify-center before:hidden text-stone-200">
+              {activeView === "release" ? "Music" : content.snippets?.subtitle || "Snippets"}
+            </p>
+            <h2 className="section-title mx-auto text-center">
+              {activeView === "release" ? content.title : content.snippets?.title}
+            </h2>
+            <p className="section-copy text-soft-glow mx-auto max-w-3xl text-balance">
+              {activeView === "release" ? content.description : content.snippets?.description}
+            </p>
+          </div>
+          {activeView === "release" ? (
+            <button
+              type="button"
+              onClick={() => setActiveView("snippets")}
+              aria-label="Go to raw footage and snippets"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-black/30 text-white transition hover:border-white/30 hover:bg-black/45"
+            >
+              <span className="text-xl leading-none">&#8594;</span>
+            </button>
+          ) : null}
+        </div>
 
         <div className="mt-12 overflow-hidden rounded-[2rem] border border-white/10 bg-black/35 p-4 shadow-[0_28px_90px_rgba(0,0,0,0.34)] backdrop-blur-md sm:p-6">
-          <div className="grid gap-6 md:grid-cols-[0.85fr_1.15fr] md:items-center">
-            <div className="overflow-hidden rounded-[1.5rem] border border-white/10 bg-black/45 shadow-[0_18px_50px_rgba(0,0,0,0.28)]">
-              <img
-                src={content.coverArt}
-                alt={`${content.title} cover art`}
-                loading="lazy"
-                decoding="async"
-                className="aspect-square w-full object-cover"
-              />
-            </div>
-
-            <div className="rounded-[1.5rem] border border-white/10 bg-black/28 p-3 shadow-[0_12px_35px_rgba(0,0,0,0.2)]">
-              <div className="mb-3 flex items-center justify-between gap-3 rounded-[1rem] border border-white/10 bg-black/40 px-4 py-3 text-left">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-stone-100">
-                    <PlatformIcon label={activePlatform?.label} />
-                  </div>
-                  <div>
-                    <p className="text-[0.65rem] font-semibold uppercase tracking-[0.28em] text-stone-400">Now Showing</p>
-                    <p className="text-sm font-bold text-white">{activePlatform?.label}</p>
-                  </div>
+          {activeView === "release" ? (
+            <>
+              <div className="grid gap-6 md:grid-cols-[0.85fr_1.15fr] md:items-center">
+                <div className="overflow-hidden rounded-[1.5rem] border border-white/10 bg-black/45 shadow-[0_18px_50px_rgba(0,0,0,0.28)]">
+                  <img
+                    src={content.coverArt}
+                    alt={`${content.title} cover art`}
+                    loading="lazy"
+                    decoding="async"
+                    className="aspect-square w-full object-cover"
+                  />
                 </div>
+
+                <div className="rounded-[1.5rem] border border-white/10 bg-black/28 p-3 shadow-[0_12px_35px_rgba(0,0,0,0.2)]">
+                  <div className="mb-3 flex items-center justify-between gap-3 rounded-[1rem] border border-white/10 bg-black/40 px-4 py-3 text-left">
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-stone-100">
+                        <PlatformIcon label={activePlatform?.label} />
+                      </div>
+                      <div>
+                        <p className="text-[0.65rem] font-semibold uppercase tracking-[0.28em] text-stone-400">Now Showing</p>
+                        <p className="text-sm font-bold text-white">{activePlatform?.label}</p>
+                      </div>
+                    </div>
+                    <a
+                      href={activePlatform?.href}
+                      target="_blank"
+                      rel="noopener noreferrer external"
+                      className="rounded-full border border-white/15 px-3 py-2 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-stone-100 transition hover:border-white/25 hover:text-white"
+                    >
+                      Open App
+                    </a>
+                  </div>
+
+                  <iframe
+                    key={activePlatform?.label}
+                    title={`${content.title} player on ${activePlatform?.label || "platform"}`}
+                    src={embedUrl}
+                    width="100%"
+                    height={embedHeight}
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                    loading="lazy"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    className="w-full rounded-[1rem] border-0 bg-black"
+                  />
+                </div>
+              </div>
+              <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+                {content.platformLinks.map((platform) => (
+                  <button
+                    key={platform.label}
+                    type="button"
+                    onClick={() => setActivePlatformLabel(platform.label)}
+                    aria-pressed={platform.label === activePlatform?.label}
+                    className={`rounded-full border px-4 py-2 text-[0.72rem] uppercase tracking-[0.22em] transition ${
+                      platform.label === activePlatform?.label
+                        ? "border-white/30 bg-white/10 font-bold text-white"
+                        : "border-white/15 bg-black/30 font-semibold text-stone-100 hover:border-white/25 hover:text-white"
+                    }`}
+                  >
+                    {platform.label}
+                  </button>
+                ))}
+              </div>
+              <div className="mt-8 rounded-[1.4rem] border border-white/10 bg-black/30 px-5 py-5 text-center">
+                <p className="text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-stone-400">
+                  Community
+                </p>
+                <p className="mx-auto mt-3 max-w-2xl text-sm leading-7 text-stone-100">
+                  {content.community?.note}
+                </p>
                 <a
-                  href={activePlatform?.href}
+                  href={content.community?.href}
                   target="_blank"
                   rel="noopener noreferrer external"
-                  className="rounded-full border border-white/15 px-3 py-2 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-stone-100 transition hover:border-white/25 hover:text-white"
+                  className="mt-5 inline-flex rounded-full border border-white/15 bg-white/10 px-5 py-3 text-[0.72rem] font-bold uppercase tracking-[0.22em] text-white transition hover:border-white/25 hover:bg-white/15"
                 >
-                  Open App
+                  {content.community?.label}
                 </a>
               </div>
-
-              <iframe
-                key={activePlatform?.label}
-                title={`${content.title} player on ${activePlatform?.label || "platform"}`}
-                src={embedUrl}
-                width="100%"
-                height={embedHeight}
-                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                loading="lazy"
-                referrerPolicy="strict-origin-when-cross-origin"
-                className="w-full rounded-[1rem] border-0 bg-black"
-              />
+            </>
+          ) : (
+            <div className="grid gap-4 md:grid-cols-3">
+              {content.snippets?.items?.map((item) => (
+                <article
+                  key={item.title}
+                  className="rounded-[1.5rem] border border-white/10 bg-black/35 p-6 text-left shadow-[0_12px_35px_rgba(0,0,0,0.2)]"
+                >
+                  <p className="text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-stone-400">
+                    {item.label}
+                  </p>
+                  <h3 className="mt-3 font-serif text-2xl text-white">{item.title}</h3>
+                  <p className="mt-3 text-sm leading-7 text-stone-200">{item.copy}</p>
+                </article>
+              ))}
             </div>
-          </div>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            {content.platformLinks.map((platform) => (
-              <button
-                key={platform.label}
-                type="button"
-                onClick={() => setActivePlatformLabel(platform.label)}
-                aria-pressed={platform.label === activePlatform?.label}
-                className={`rounded-full border px-4 py-2 text-[0.72rem] uppercase tracking-[0.22em] transition ${
-                  platform.label === activePlatform?.label
-                    ? "border-white/30 bg-white/10 font-bold text-white"
-                    : "border-white/15 bg-black/30 font-semibold text-stone-100 hover:border-white/25 hover:text-white"
-                }`}
-              >
-                {platform.label}
-              </button>
-            ))}
-          </div>
+          )}
         </div>
       </div>
     </section>
