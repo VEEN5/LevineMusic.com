@@ -28,7 +28,7 @@ export const artistContent = {
     platformLinks: releaseLinks,
     community: {
       label: "Join the Discord",
-      href: "https://discord.com/",
+      href: "https://discord.gg/USee37HxBa",
       note: "Join the space if you want to stay close to the music, future drops, and the world around it.",
     },
     embedUrl:
