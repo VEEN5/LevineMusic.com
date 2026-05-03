@@ -228,22 +228,6 @@ export default function MusicSection({ content }) {
                   </button>
                 ))}
               </div>
-              <div className="mt-8 rounded-[1.4rem] border border-white/10 bg-black/30 px-5 py-5 text-center">
-                <p className="text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-stone-400">
-                  Community
-                </p>
-                <p className="mx-auto mt-3 max-w-2xl text-sm leading-7 text-stone-100">
-                  {content.community?.note}
-                </p>
-                <a
-                  href={content.community?.href}
-                  target="_blank"
-                  rel="noopener noreferrer external"
-                  className="mt-5 inline-flex rounded-full border border-white/15 bg-white/10 px-5 py-3 text-[0.72rem] font-bold uppercase tracking-[0.22em] text-white transition hover:border-white/25 hover:bg-white/15"
-                >
-                  {content.community?.label}
-                </a>
-              </div>
             </>
           ) : (
             <div className="grid gap-4 md:grid-cols-3">

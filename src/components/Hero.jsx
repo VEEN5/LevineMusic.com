@@ -127,6 +127,16 @@ export default function Hero({ content }) {
           ))}
         </div>
         <div className="reveal-up reveal-delay-3 mt-7 flex flex-wrap items-center justify-center gap-3">
+          {content.music?.community?.href ? (
+            <a
+              href={content.music.community.href}
+              target="_blank"
+              rel="noopener noreferrer external"
+              className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-[0.68rem] font-bold uppercase tracking-[0.24em] text-white transition hover:border-white/35 hover:bg-white/15"
+            >
+              {content.music.community.label}
+            </a>
+          ) : null}
           {content.contact.socialLinks.map((social) => (
             <a
               key={social.label}
