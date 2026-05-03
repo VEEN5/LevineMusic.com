@@ -83,7 +83,7 @@ export default function Hero({ content }) {
             <span className="relative z-10">{content.artistName}</span>
             <span
               className="hero-reflection pointer-events-none absolute left-1/2 top-[88%] whitespace-nowrap text-[0.5em] font-bold tracking-[0.38em]"
-              style={{ color: "#d62f2f", opacity: 0.95, textShadow: "0 0 18px rgba(214, 47, 47, 0.35)" }}
+              style={{ color: "#e03a3a", opacity: 1, textShadow: "0 0 20px rgba(224, 58, 58, 0.45)" }}
             >
               ENIVEL
             </span>

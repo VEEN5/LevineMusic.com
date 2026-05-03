@@ -109,9 +109,9 @@
 .hero-reflection {
   transform: translateX(-50%);
   transform-origin: top center;
-  filter: blur(0.25px);
-  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.82), transparent 86%);
-  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.82), transparent 86%);
+  filter: blur(0.1px);
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.96), rgba(0, 0, 0, 0.72) 58%, transparent 96%);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.96), rgba(0, 0, 0, 0.72) 58%, transparent 96%);
 }
 
 .grain-layer {
