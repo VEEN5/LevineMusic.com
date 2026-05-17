@@ -4,6 +4,9 @@ export default function Hero({ content }) {
   const videoRef = useRef(null);
   const [isMuted, setIsMuted] = useState(true);
   const [showVideo, setShowVideo] = useState(false);
+  const showHeroPromo = content.showHeroPromo !== false;
+  const showHeroPlatforms = content.showHeroPlatforms !== false;
+  const showHeroCommunity = content.showHeroCommunity !== false;
 
   useEffect(() => {
     const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -98,57 +101,62 @@ export default function Hero({ content }) {
             {isMuted ? "Tap for Sound" : "Sound On"}
           </button>
         ) : null}
-        <p className="text-soft-glow reveal-up text-[0.76rem] font-bold uppercase tracking-[0.52em] text-stone-200">
-          just speaking my mind
-        </p>
-        <p className="text-soft-glow reveal-up reveal-delay-2 mt-5 max-w-2xl text-2xl font-semibold text-stone-100 sm:text-3xl">
-          {content.heroLine}
-        </p>
-        <a
-          href={content.listenNowUrl || content.spotifyUrl}
-          target="_blank"
-          rel="noopener noreferrer external"
-          aria-label="Listen now"
-          className="button-primary reveal-up reveal-delay-3 mt-10 min-w-[12rem]"
-        >
-          Listen Now
-        </a>
-        <div className="reveal-up reveal-delay-3 mt-7 flex max-w-3xl flex-wrap items-center justify-center gap-3">
-          {content.platformLinks.map((platform) => (
-            <a
-              key={platform.label}
-              href={platform.href}
-              target="_blank"
-              rel="noopener noreferrer external"
-              className="rounded-full border border-white/20 bg-black/25 px-4 py-2 text-[0.68rem] font-bold uppercase tracking-[0.24em] text-stone-100 transition hover:border-white/35 hover:bg-black/35 hover:text-white"
-            >
-              {platform.label}
-            </a>
-          ))}
-        </div>
-        <div className="reveal-up reveal-delay-3 mt-7 flex flex-wrap items-center justify-center gap-3">
-          {content.music?.community?.href ? (
-            <a
-              href={content.music.community.href}
-              target="_blank"
-              rel="noopener noreferrer external"
-              className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-[0.68rem] font-bold uppercase tracking-[0.24em] text-white transition hover:border-white/35 hover:bg-white/15"
-            >
-              {content.music.community.label}
-            </a>
-          ) : null}
-          {content.contact.socialLinks.map((social) => (
-            <a
-              key={social.label}
-              href={social.href}
-              target="_blank"
-              rel="noopener noreferrer external"
-              className="rounded-full border border-white/15 bg-black/15 px-4 py-2 text-[0.68rem] font-bold uppercase tracking-[0.24em] text-stone-100 transition hover:border-white/30 hover:text-white"
-            >
-              {social.label}
-            </a>
-          ))}
-        </div>
+        {showHeroPromo && content.heroLine ? (
+          <p className="text-soft-glow reveal-up reveal-delay-2 mt-5 max-w-2xl text-2xl font-semibold text-stone-100 sm:text-3xl">
+            {content.heroLine}
+          </p>
+        ) : null}
+        {showHeroPromo && (content.listenNowUrl || content.spotifyUrl) ? (
+          <a
+            href={content.listenNowUrl || content.spotifyUrl}
+            target="_blank"
+            rel="noopener noreferrer external"
+            aria-label="Listen now"
+            className="button-primary reveal-up reveal-delay-3 mt-10 min-w-[12rem]"
+          >
+            Listen Now
+          </a>
+        ) : null}
+        {showHeroPlatforms && content.platformLinks?.length ? (
+          <div className="reveal-up reveal-delay-3 mt-7 flex max-w-3xl flex-wrap items-center justify-center gap-3">
+            {content.platformLinks.map((platform) => (
+              <a
+                key={platform.label}
+                href={platform.href}
+                target="_blank"
+                rel="noopener noreferrer external"
+                className="rounded-full border border-white/20 bg-black/25 px-4 py-2 text-[0.68rem] font-bold uppercase tracking-[0.24em] text-stone-100 transition hover:border-white/35 hover:bg-black/35 hover:text-white"
+              >
+                {platform.label}
+              </a>
+            ))}
+          </div>
+        ) : null}
+        {showHeroCommunity ? (
+          <div className="reveal-up reveal-delay-3 mt-7 flex flex-wrap items-center justify-center gap-3">
+            {content.music?.community?.href ? (
+              <a
+                href={content.music.community.href}
+                target="_blank"
+                rel="noopener noreferrer external"
+                className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-[0.68rem] font-bold uppercase tracking-[0.24em] text-white transition hover:border-white/35 hover:bg-white/15"
+              >
+                {content.music.community.label}
+              </a>
+            ) : null}
+            {content.contact.socialLinks.map((social) => (
+              <a
+                key={social.label}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer external"
+                className="rounded-full border border-white/15 bg-black/15 px-4 py-2 text-[0.68rem] font-bold uppercase tracking-[0.24em] text-stone-100 transition hover:border-white/30 hover:text-white"
+              >
+                {social.label}
+              </a>
+            ))}
+          </div>
+        ) : null}
       </div>
     </section>
   );

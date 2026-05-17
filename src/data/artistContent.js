@@ -11,12 +11,15 @@ const releaseLinks = [
 export const artistContent = {
   artistName: "Levine",
   currentRelease: "Temptation",
-  heroLine: "Temptation - Out Now",
+  heroLine: "",
   listenNowUrl: "https://linktr.ee/LevineSmith",
   spotifyUrl: releaseLinks[0].href,
   platformLinks: releaseLinks,
-  heroVideo: "/hero-walk.mp4",
+  heroVideo: "/toxic-little-me-hero.mp4",
   heroImage: "",
+  showHeroPromo: false,
+  showHeroPlatforms: false,
+  showHeroCommunity: false,
   music: {
     eyebrow: "Latest Release",
     title: "Temptation",
