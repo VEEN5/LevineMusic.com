@@ -113,6 +113,14 @@ export default function Hero({ content }) {
             ) : null}
           </div>
         ) : null}
+        {content.heroMusicLabel ? (
+          <a
+            href="#music"
+            className="button-secondary reveal-up reveal-delay-2 mt-8 min-w-[12rem]"
+          >
+            {content.heroMusicLabel}
+          </a>
+        ) : null}
         {showHeroPromo && content.heroLine ? (
           <p className="text-soft-glow reveal-up reveal-delay-2 mt-5 max-w-2xl text-2xl font-semibold text-stone-100 sm:text-3xl">
             {content.heroLine}
