@@ -41,15 +41,20 @@ export default function MusicSection({ content }) {
     setIsMuted(nextMuted);
 
     if (!nextMuted) {
+      video.currentTime = 0;
       video.play().catch(() => {
         video.muted = true;
         setIsMuted(true);
       });
+    } else {
+      video.pause();
+      video.currentTime = 0;
+      video.play().catch(() => {});
     }
   }
 
   return (
-    <section id="music" className="relative overflow-hidden py-16 sm:py-20">
+    <section id="music" className="relative overflow-hidden scroll-mt-6 py-12 sm:scroll-mt-10 sm:py-16">
       <div className="absolute inset-0">
         {currentBackgroundImage ? (
           <img
@@ -123,11 +128,11 @@ export default function MusicSection({ content }) {
           ) : null}
         </div>
 
-        <div className="mt-12 overflow-hidden rounded-[2rem] border border-white/10 bg-black/35 p-4 shadow-[0_28px_90px_rgba(0,0,0,0.34)] backdrop-blur-md sm:p-6">
+        <div className="mt-8 overflow-hidden rounded-[2rem] border border-white/10 bg-black/35 p-4 shadow-[0_28px_90px_rgba(0,0,0,0.34)] backdrop-blur-md sm:p-6">
           {activeView === "release" ? (
             <>
               {showVideo ? (
-                <div className="mb-6 flex justify-center">
+                <div className="mb-5 flex justify-center">
                   <button
                     type="button"
                     onClick={handleToggleSound}
@@ -137,18 +142,7 @@ export default function MusicSection({ content }) {
                   </button>
                 </div>
               ) : null}
-              <div className="mx-auto max-w-md">
-                <div className="overflow-hidden rounded-[1.5rem] border border-white/10 bg-black/45 shadow-[0_18px_50px_rgba(0,0,0,0.28)]">
-                  <img
-                    src={content.coverArt}
-                    alt={`${content.title} cover art`}
-                    loading="lazy"
-                    decoding="async"
-                    className="aspect-square w-full object-cover"
-                  />
-                </div>
-              </div>
-              <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+              <div className="mb-5 flex flex-wrap items-center justify-center gap-3">
                 {content.platformLinks.map((platform) => (
                   <a
                     key={platform.label}
@@ -160,6 +154,17 @@ export default function MusicSection({ content }) {
                     {platform.label}
                   </a>
                 ))}
+              </div>
+              <div className="mx-auto max-w-[17rem] sm:max-w-xs">
+                <div className="overflow-hidden rounded-[1.5rem] border border-white/10 bg-black/45 shadow-[0_18px_50px_rgba(0,0,0,0.28)]">
+                  <img
+                    src={content.coverArt}
+                    alt={`${content.title} cover art`}
+                    loading="lazy"
+                    decoding="async"
+                    className="aspect-square w-full object-cover"
+                  />
+                </div>
               </div>
             </>
           ) : (

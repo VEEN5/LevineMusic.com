@@ -41,10 +41,15 @@ export default function Hero({ content }) {
     setIsMuted(nextMuted);
 
     if (!nextMuted) {
+      video.currentTime = 0;
       video.play().catch(() => {
         video.muted = true;
         setIsMuted(true);
       });
+    } else {
+      video.pause();
+      video.currentTime = 0;
+      video.play().catch(() => {});
     }
   }
 
