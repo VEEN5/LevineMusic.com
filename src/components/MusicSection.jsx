@@ -1,78 +1,8 @@
-import { useEffect, useMemo, useState } from "react";
-
-function normalizePlatformLabel(label) {
-  return String(label || "").toLowerCase();
-}
-
-function getEmbedUrl(platform) {
-  const label = normalizePlatformLabel(platform.label);
-  const href = platform.href;
-
-  if (label === "spotify") {
-    return href.replace("open.spotify.com/", "open.spotify.com/embed/");
-  }
-
-  if (label === "apple music") {
-    return href.replace("music.apple.com/", "embed.music.apple.com/");
-  }
-
-  if (label === "soundcloud") {
-    return `https://w.soundcloud.com/player/?url=${encodeURIComponent(href)}&color=%23050505&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&visual=true`;
-  }
-
-  if (label === "youtube") {
-    try {
-      const url = new URL(href);
-      const videoId = url.searchParams.get("v");
-      return videoId ? `https://www.youtube.com/embed/${videoId}` : href;
-    } catch (_error) {
-      return href;
-    }
-  }
-
-  return href;
-}
-
-function getEmbedHeight(label) {
-  const platform = normalizePlatformLabel(label);
-
-  if (platform === "apple music") return 450;
-  if (platform === "soundcloud") return 380;
-  if (platform === "youtube") return 315;
-  return 352;
-}
-
-function PlatformIcon({ label }) {
-  const platform = normalizePlatformLabel(label);
-
-  if (platform === "apple music") {
-    return <span className="text-base leading-none">A</span>;
-  }
-
-  if (platform === "soundcloud") {
-    return <span className="text-base leading-none">S</span>;
-  }
-
-  if (platform === "youtube") {
-    return <span className="text-base leading-none">Y</span>;
-  }
-
-  return <span className="text-base leading-none">S</span>;
-}
+import { useEffect, useState } from "react";
 
 export default function MusicSection({ content }) {
-  const [activePlatformLabel, setActivePlatformLabel] = useState(content.platformLinks[0]?.label || "Spotify");
   const [showVideo, setShowVideo] = useState(false);
   const [activeView, setActiveView] = useState("release");
-  const activePlatform = useMemo(() => {
-    return (
-      content.platformLinks.find((platform) => platform.label === activePlatformLabel) ||
-      content.platformLinks[0]
-    );
-  }, [activePlatformLabel, content.platformLinks]);
-
-  const embedUrl = activePlatform ? getEmbedUrl(activePlatform) : content.embedUrl;
-  const embedHeight = getEmbedHeight(activePlatform?.label);
   const currentBackgroundImage =
     activeView === "snippets" ? content.snippets?.backgroundImage || "" : content.backgroundImage;
 
@@ -177,7 +107,7 @@ export default function MusicSection({ content }) {
         <div className="mt-12 overflow-hidden rounded-[2rem] border border-white/10 bg-black/35 p-4 shadow-[0_28px_90px_rgba(0,0,0,0.34)] backdrop-blur-md sm:p-6">
           {activeView === "release" ? (
             <>
-              <div className="grid gap-6 md:grid-cols-[0.85fr_1.15fr] md:items-center">
+              <div className="mx-auto max-w-xl">
                 <div className="overflow-hidden rounded-[1.5rem] border border-white/10 bg-black/45 shadow-[0_18px_50px_rgba(0,0,0,0.28)]">
                   <img
                     src={content.coverArt}
@@ -187,56 +117,18 @@ export default function MusicSection({ content }) {
                     className="aspect-square w-full object-cover"
                   />
                 </div>
-
-                <div className="rounded-[1.5rem] border border-white/10 bg-black/28 p-3 shadow-[0_12px_35px_rgba(0,0,0,0.2)]">
-                  <div className="mb-3 flex items-center justify-between gap-3 rounded-[1rem] border border-white/10 bg-black/40 px-4 py-3 text-left">
-                    <div className="flex items-center gap-3">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-stone-100">
-                        <PlatformIcon label={activePlatform?.label} />
-                      </div>
-                      <div>
-                        <p className="text-[0.65rem] font-semibold uppercase tracking-[0.28em] text-stone-400">Now Showing</p>
-                        <p className="text-sm font-bold text-white">{activePlatform?.label}</p>
-                      </div>
-                    </div>
-                    <a
-                      href={activePlatform?.href}
-                      target="_blank"
-                      rel="noopener noreferrer external"
-                      className="rounded-full border border-white/15 px-3 py-2 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-stone-100 transition hover:border-white/25 hover:text-white"
-                    >
-                      Open App
-                    </a>
-                  </div>
-
-                  <iframe
-                    key={activePlatform?.label}
-                    title={`${content.title} player on ${activePlatform?.label || "platform"}`}
-                    src={embedUrl}
-                    width="100%"
-                    height={embedHeight}
-                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                    loading="lazy"
-                    referrerPolicy="strict-origin-when-cross-origin"
-                    className="w-full rounded-[1rem] border-0 bg-black"
-                  />
-                </div>
               </div>
               <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
                 {content.platformLinks.map((platform) => (
-                  <button
+                  <a
                     key={platform.label}
-                    type="button"
-                    onClick={() => setActivePlatformLabel(platform.label)}
-                    aria-pressed={platform.label === activePlatform?.label}
-                    className={`rounded-full border px-4 py-2 text-[0.72rem] uppercase tracking-[0.22em] transition ${
-                      platform.label === activePlatform?.label
-                        ? "border-white/30 bg-white/10 font-bold text-white"
-                        : "border-white/15 bg-black/30 font-semibold text-stone-100 hover:border-white/25 hover:text-white"
-                    }`}
+                    href={platform.href}
+                    target="_blank"
+                    rel="noopener noreferrer external"
+                    className="rounded-full border border-white/15 bg-black/30 px-4 py-2 text-[0.72rem] font-semibold uppercase tracking-[0.22em] text-stone-100 transition hover:border-white/25 hover:text-white"
                   >
                     {platform.label}
-                  </button>
+                  </a>
                 ))}
               </div>
             </>
