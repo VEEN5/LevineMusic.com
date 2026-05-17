@@ -101,6 +101,18 @@ export default function Hero({ content }) {
             {isMuted ? "Tap for Sound" : "Sound On"}
           </button>
         ) : null}
+        {content.heroTeaserTitle ? (
+          <div className="reveal-up reveal-delay-1 text-center">
+            <p className="text-soft-glow text-2xl font-black uppercase tracking-[0.16em] text-white sm:text-3xl">
+              {content.heroTeaserTitle}
+            </p>
+            {content.heroTeaserStatus ? (
+              <p className="mt-2 text-[0.78rem] font-bold uppercase tracking-[0.42em] text-[#d94a4a] sm:text-[0.82rem]">
+                {content.heroTeaserStatus}
+              </p>
+            ) : null}
+          </div>
+        ) : null}
         {showHeroPromo && content.heroLine ? (
           <p className="text-soft-glow reveal-up reveal-delay-2 mt-5 max-w-2xl text-2xl font-semibold text-stone-100 sm:text-3xl">
             {content.heroLine}

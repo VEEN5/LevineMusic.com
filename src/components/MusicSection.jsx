@@ -74,7 +74,7 @@ export default function MusicSection({ content }) {
   const embedUrl = activePlatform ? getEmbedUrl(activePlatform) : content.embedUrl;
   const embedHeight = getEmbedHeight(activePlatform?.label);
   const currentBackgroundImage =
-    activeView === "snippets" ? content.snippets?.backgroundImage || content.backgroundImage : content.backgroundImage;
+    activeView === "snippets" ? content.snippets?.backgroundImage || "" : content.backgroundImage;
 
   useEffect(() => {
     const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -103,15 +103,19 @@ export default function MusicSection({ content }) {
   return (
     <section id="music" className="relative overflow-hidden py-16 sm:py-20">
       <div className="absolute inset-0">
-        <img
-          src={currentBackgroundImage}
-          alt=""
-          aria-hidden="true"
-          loading="lazy"
-          decoding="async"
-          className="absolute inset-0 h-full w-full object-cover opacity-30 blur-[1px]"
-        />
-        {showVideo ? (
+        {currentBackgroundImage ? (
+          <img
+            src={currentBackgroundImage}
+            alt=""
+            aria-hidden="true"
+            loading="lazy"
+            decoding="async"
+            className="absolute inset-0 h-full w-full object-cover opacity-30 blur-[1px]"
+          />
+        ) : (
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(224,58,58,0.2),transparent_22%),radial-gradient(circle_at_82%_18%,rgba(120,0,0,0.26),transparent_24%),linear-gradient(180deg,#040404_0%,#090303_52%,#020202_100%)]" />
+        )}
+        {showVideo && activeView === "release" ? (
           <video
             autoPlay
             muted
@@ -126,6 +130,13 @@ export default function MusicSection({ content }) {
         ) : null}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.04),transparent_24%),radial-gradient(circle_at_20%_30%,rgba(143,23,23,0.08),transparent_26%),linear-gradient(180deg,rgba(2,2,2,0.34)_0%,rgba(5,5,5,0.24)_46%,rgba(2,2,2,0.42)_100%)]" />
         <div className="grain-layer absolute inset-0 opacity-10" />
+        {activeView === "snippets" && content.snippets?.watermark ? (
+          <div className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden">
+            <span className="select-none font-serif text-[22vw] font-bold uppercase tracking-[0.1em] text-[#7f0f0f]/20">
+              {content.snippets.watermark}
+            </span>
+          </div>
+        ) : null}
       </div>
 
       <div className="section-shell relative z-10 mx-auto max-w-5xl text-center">
