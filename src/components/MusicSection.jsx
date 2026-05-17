@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function MusicSection({ content }) {
+  const videoRef = useRef(null);
   const [showVideo, setShowVideo] = useState(false);
   const [activeView, setActiveView] = useState("release");
+  const [isMuted, setIsMuted] = useState(true);
   const currentBackgroundImage =
     activeView === "snippets" ? content.snippets?.backgroundImage || "" : content.backgroundImage;
 
@@ -30,6 +32,22 @@ export default function MusicSection({ content }) {
     };
   }, [content.backgroundVideo]);
 
+  function handleToggleSound() {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const nextMuted = !video.muted;
+    video.muted = nextMuted;
+    setIsMuted(nextMuted);
+
+    if (!nextMuted) {
+      video.play().catch(() => {
+        video.muted = true;
+        setIsMuted(true);
+      });
+    }
+  }
+
   return (
     <section id="music" className="relative overflow-hidden py-16 sm:py-20">
       <div className="absolute inset-0">
@@ -47,6 +65,7 @@ export default function MusicSection({ content }) {
         )}
         {showVideo && activeView === "release" ? (
           <video
+            ref={videoRef}
             autoPlay
             muted
             loop
@@ -107,7 +126,18 @@ export default function MusicSection({ content }) {
         <div className="mt-12 overflow-hidden rounded-[2rem] border border-white/10 bg-black/35 p-4 shadow-[0_28px_90px_rgba(0,0,0,0.34)] backdrop-blur-md sm:p-6">
           {activeView === "release" ? (
             <>
-              <div className="mx-auto max-w-xl">
+              {showVideo ? (
+                <div className="mb-6 flex justify-center">
+                  <button
+                    type="button"
+                    onClick={handleToggleSound}
+                    className="rounded-full border border-white/15 bg-black/25 px-4 py-2 text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-stone-200 transition hover:border-white/25 hover:bg-black/35"
+                  >
+                    {isMuted ? "Tap for Sound" : "Sound On"}
+                  </button>
+                </div>
+              ) : null}
+              <div className="mx-auto max-w-md">
                 <div className="overflow-hidden rounded-[1.5rem] border border-white/10 bg-black/45 shadow-[0_18px_50px_rgba(0,0,0,0.28)]">
                   <img
                     src={content.coverArt}
