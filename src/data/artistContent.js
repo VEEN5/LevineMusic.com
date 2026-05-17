@@ -42,26 +42,10 @@ export const artistContent = {
       title: "Toxic Little Me",
       subtitle: "Future Drops",
       description:
-        "We all have that dark side of us. Just embrace it and be real.",
+        "We all have that dark and light side of us, but it's okay to balance both. Join me.",
       backgroundImage: "",
-      watermark: "TOXIV",
-      items: [
-        {
-          label: "Future Drop",
-          title: "Toxic Little Me",
-          copy: "A darker side is coming forward soon.",
-        },
-        {
-          label: "Energy",
-          title: "Black and red",
-          copy: "Built to feel raw, tense, and fully honest.",
-        },
-        {
-          label: "Wordplay",
-          title: "Toxiv",
-          copy: "A warped version of self, reflected back in the music.",
-        },
-      ],
+      watermark: "ENIVEL",
+      items: [],
     },
   },
   about: {

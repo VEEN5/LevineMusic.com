@@ -241,20 +241,22 @@ export default function MusicSection({ content }) {
               </div>
             </>
           ) : (
-            <div className="grid gap-4 md:grid-cols-3">
-              {content.snippets?.items?.map((item) => (
-                <article
-                  key={item.label}
-                  className="rounded-[1.5rem] border border-white/10 bg-black/35 p-6 text-left shadow-[0_12px_35px_rgba(0,0,0,0.2)]"
-                >
-                  <p className="text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-stone-400">
-                    {item.label}
-                  </p>
-                  <h3 className="mt-3 font-serif text-2xl text-white">{item.title}</h3>
-                  <p className="mt-3 text-sm leading-7 text-stone-200">{item.copy}</p>
-                </article>
-              ))}
-            </div>
+            content.snippets?.items?.length ? (
+              <div className="grid gap-4 md:grid-cols-3">
+                {content.snippets.items.map((item) => (
+                  <article
+                    key={item.label}
+                    className="rounded-[1.5rem] border border-white/10 bg-black/35 p-6 text-left shadow-[0_12px_35px_rgba(0,0,0,0.2)]"
+                  >
+                    <p className="text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-stone-400">
+                      {item.label}
+                    </p>
+                    <h3 className="mt-3 font-serif text-2xl text-white">{item.title}</h3>
+                    <p className="mt-3 text-sm leading-7 text-stone-200">{item.copy}</p>
+                  </article>
+                ))}
+              </div>
+            ) : null
           )}
         </div>
       </div>
