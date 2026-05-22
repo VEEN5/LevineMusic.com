@@ -13,7 +13,7 @@ export const artistContent = {
   currentRelease: "Temptation",
   heroLine: "",
   heroTeaserTitle: "Toxic Little Me",
-  heroTeaserStatus: "Out Soon",
+  heroTeaserStatus: "Dropping May 25",
   heroMusicLabel: "Levine's Music",
   listenNowUrl: "https://linktr.ee/LevineSmith",
   spotifyUrl: releaseLinks[0].href,
