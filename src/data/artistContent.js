@@ -47,11 +47,18 @@ export const artistContent = {
       "https://open.spotify.com/embed/album/3gqFDs8SUPl3xbqpUkKRS0?utm_source=generator",
     snippets: {
       title: "Toxic Little Me",
-      subtitle: "Future Drops",
+      subtitle: "Music",
       description:
         "We all have that dark and light side of us, but it's okay to balance both. Join me.",
       backgroundImage: "",
+      backgroundVideo: "/toxic-little-me-hero.mp4",
       watermark: "ENIVEL",
+      releaseLinks: [
+        { label: "Spotify", href: "https://open.spotify.com/album/1UQk2YZJW9fjYFVYx3udSm?si=EHmaB4CxR12h6EN58XFwJw" },
+        { label: "Apple Music", href: "https://music.apple.com/us/album/toxic-little-me-single/6772158910" },
+        { label: "SoundCloud", href: "https://soundcloud.com/levinesmith/toxic-little-me" },
+        { label: "YouTube", href: "https://youtu.be/UFjd2Oec9ac?si=wvVncHzq063WhDoE" },
+      ],
       items: [],
     },
   },

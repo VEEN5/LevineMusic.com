@@ -5,14 +5,19 @@ export default function MusicSection({ content }) {
   const [showVideo, setShowVideo] = useState(false);
   const [activeView, setActiveView] = useState("release");
   const [isMuted, setIsMuted] = useState(true);
+  const isSnippetView = activeView === "snippets";
   const currentBackgroundImage =
-    activeView === "snippets" ? content.snippets?.backgroundImage || "" : content.backgroundImage;
+    isSnippetView ? content.snippets?.backgroundImage || "" : content.backgroundImage;
+  const currentBackgroundVideo =
+    isSnippetView ? content.snippets?.backgroundVideo || content.backgroundVideo : content.backgroundVideo;
+  const currentPlatformLinks =
+    isSnippetView ? content.snippets?.releaseLinks || [] : content.platformLinks;
 
   useEffect(() => {
     const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
     function updateVideoMode() {
-      setShowVideo(Boolean(content.backgroundVideo) && !reducedMotionQuery.matches);
+      setShowVideo(Boolean(currentBackgroundVideo) && !reducedMotionQuery.matches);
     }
 
     updateVideoMode();
@@ -30,7 +35,7 @@ export default function MusicSection({ content }) {
         reducedMotionQuery.removeListener(updateVideoMode);
       }
     };
-  }, [content.backgroundVideo]);
+  }, [currentBackgroundVideo]);
 
   function handleToggleSound() {
     const video = videoRef.current;
@@ -68,7 +73,7 @@ export default function MusicSection({ content }) {
         ) : (
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(224,58,58,0.2),transparent_22%),radial-gradient(circle_at_82%_18%,rgba(120,0,0,0.26),transparent_24%),linear-gradient(180deg,#040404_0%,#090303_52%,#020202_100%)]" />
         )}
-        {showVideo && activeView === "release" ? (
+        {showVideo ? (
           <video
             ref={videoRef}
             autoPlay
@@ -76,15 +81,15 @@ export default function MusicSection({ content }) {
             loop
             playsInline
             preload="metadata"
-            poster={currentBackgroundImage}
+            poster={currentBackgroundImage || undefined}
             className="absolute inset-0 h-full w-full object-cover opacity-72"
           >
-            <source src={content.backgroundVideo} type="video/mp4" />
+            <source src={currentBackgroundVideo} type="video/mp4" />
           </video>
         ) : null}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.04),transparent_24%),radial-gradient(circle_at_20%_30%,rgba(143,23,23,0.08),transparent_26%),linear-gradient(180deg,rgba(2,2,2,0.34)_0%,rgba(5,5,5,0.24)_46%,rgba(2,2,2,0.42)_100%)]" />
         <div className="grain-layer absolute inset-0 opacity-10" />
-        {activeView === "snippets" && content.snippets?.watermark ? (
+        {isSnippetView && content.snippets?.watermark ? (
           <div className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden">
             <span className="select-none font-serif text-[22vw] font-bold uppercase tracking-[0.1em] text-[#7f0f0f]/20">
               {content.snippets.watermark}
@@ -143,7 +148,7 @@ export default function MusicSection({ content }) {
                 </div>
               ) : null}
               <div className="mb-5 flex flex-wrap items-center justify-center gap-3">
-                {content.platformLinks.map((platform) => (
+                {currentPlatformLinks.map((platform) => (
                   <a
                     key={platform.label}
                     href={platform.href}
@@ -168,22 +173,54 @@ export default function MusicSection({ content }) {
               </div>
             </>
           ) : (
-            content.snippets?.items?.length ? (
-              <div className="grid gap-4 md:grid-cols-3">
-                {content.snippets.items.map((item) => (
-                  <article
-                    key={item.label}
-                    className="rounded-[1.5rem] border border-white/10 bg-black/35 p-6 text-left shadow-[0_12px_35px_rgba(0,0,0,0.2)]"
+            <>
+              {showVideo ? (
+                <div className="mb-5 flex justify-center">
+                  <button
+                    type="button"
+                    onClick={handleToggleSound}
+                    className="rounded-full border border-white/15 bg-black/25 px-4 py-2 text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-stone-200 transition hover:border-white/25 hover:bg-black/35"
                   >
-                    <p className="text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-stone-400">
-                      {item.label}
-                    </p>
-                    <h3 className="mt-3 font-serif text-2xl text-white">{item.title}</h3>
-                    <p className="mt-3 text-sm leading-7 text-stone-200">{item.copy}</p>
-                  </article>
+                    {isMuted ? "Tap for Sound" : "Sound On"}
+                  </button>
+                </div>
+              ) : null}
+              <div className="mb-5 flex flex-wrap items-center justify-center gap-3">
+                {currentPlatformLinks.map((platform) => (
+                  <a
+                    key={platform.label}
+                    href={platform.href}
+                    target="_blank"
+                    rel="noopener noreferrer external"
+                    className="rounded-full border border-white/15 bg-black/30 px-4 py-2 text-[0.72rem] font-semibold uppercase tracking-[0.22em] text-stone-100 transition hover:border-white/25 hover:text-white"
+                  >
+                    {platform.label}
+                  </a>
                 ))}
               </div>
-            ) : null
+              <div className="mx-auto max-w-[17rem] sm:max-w-xs">
+                <div className="aspect-square overflow-hidden rounded-[1.5rem] border border-white/10 bg-[radial-gradient(circle_at_top,rgba(224,58,58,0.22),transparent_26%),linear-gradient(180deg,rgba(10,10,10,0.98),rgba(22,5,5,0.92))] p-6 shadow-[0_18px_50px_rgba(0,0,0,0.28)]">
+                  <div className="flex h-full flex-col justify-between text-left">
+                    <div>
+                      <p className="text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-stone-400">
+                        Music
+                      </p>
+                      <h3 className="mt-4 font-serif text-4xl leading-none text-white">
+                        Toxic Little Me
+                      </h3>
+                    </div>
+                    <div>
+                      <p className="text-[0.78rem] font-bold uppercase tracking-[0.34em] text-[#d94a4a]">
+                        ENIVEL
+                      </p>
+                      <p className="mt-2 text-sm leading-6 text-stone-200">
+                        Out now on every platform above.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </>
           )}
         </div>
       </div>
