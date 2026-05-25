@@ -16,7 +16,7 @@ export const artistContent = {
   heroTeaserStatus: "Out Now",
   heroReleaseLinks: [
     { label: "Spotify", href: "https://open.spotify.com/album/1UQk2YZJW9fjYFVYx3udSm?si=EHmaB4CxR12h6EN58XFwJw" },
-    { label: "Apple Music", href: "" },
+    { label: "Apple Music", href: "https://music.apple.com/us/album/toxic-little-me-single/6772158910" },
     { label: "SoundCloud", href: "" },
     { label: "YouTube", href: "" },
   ],
