@@ -14,7 +14,12 @@ export const artistContent = {
   heroLine: "",
   heroTeaserTitle: "Toxic Little Me",
   heroTeaserStatus: "Out Now",
-  heroReleaseTags: ["Spotify", "Apple Music", "SoundCloud", "YouTube"],
+  heroReleaseLinks: [
+    { label: "Spotify", href: "https://open.spotify.com/album/1UQk2YZJW9fjYFVYx3udSm?si=EHmaB4CxR12h6EN58XFwJw" },
+    { label: "Apple Music", href: "" },
+    { label: "SoundCloud", href: "" },
+    { label: "YouTube", href: "" },
+  ],
   heroMusicLabel: "Levine's Music",
   listenNowUrl: "https://linktr.ee/LevineSmith",
   spotifyUrl: releaseLinks[0].href,

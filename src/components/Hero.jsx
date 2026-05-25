@@ -118,16 +118,28 @@ export default function Hero({ content }) {
             ) : null}
           </div>
         ) : null}
-        {content.heroReleaseTags?.length ? (
+        {content.heroReleaseLinks?.length ? (
           <div className="reveal-up reveal-delay-2 mt-6 flex max-w-3xl flex-wrap items-center justify-center gap-3">
-            {content.heroReleaseTags.map((label) => (
-              <span
-                key={label}
-                className="rounded-full border border-white/20 bg-black/25 px-4 py-2 text-[0.68rem] font-bold uppercase tracking-[0.24em] text-stone-100"
-              >
-                {label}
-              </span>
-            ))}
+            {content.heroReleaseLinks.map((platform) =>
+              platform.href ? (
+                <a
+                  key={platform.label}
+                  href={platform.href}
+                  target="_blank"
+                  rel="noopener noreferrer external"
+                  className="rounded-full border border-white/20 bg-black/25 px-4 py-2 text-[0.68rem] font-bold uppercase tracking-[0.24em] text-stone-100 transition hover:border-white/35 hover:bg-black/35 hover:text-white"
+                >
+                  {platform.label}
+                </a>
+              ) : (
+                <span
+                  key={platform.label}
+                  className="rounded-full border border-white/12 bg-black/15 px-4 py-2 text-[0.68rem] font-bold uppercase tracking-[0.24em] text-stone-500"
+                >
+                  {platform.label}
+                </span>
+              ),
+            )}
           </div>
         ) : null}
         {content.heroMusicLabel ? (
