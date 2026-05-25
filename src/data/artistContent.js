@@ -17,7 +17,7 @@ export const artistContent = {
   heroReleaseLinks: [
     { label: "Spotify", href: "https://open.spotify.com/album/1UQk2YZJW9fjYFVYx3udSm?si=EHmaB4CxR12h6EN58XFwJw" },
     { label: "Apple Music", href: "https://music.apple.com/us/album/toxic-little-me-single/6772158910" },
-    { label: "SoundCloud", href: "" },
+    { label: "SoundCloud", href: "https://soundcloud.com/levinesmith/toxic-little-me" },
     { label: "YouTube", href: "https://youtu.be/UFjd2Oec9ac?si=wvVncHzq063WhDoE" },
   ],
   heroMusicLabel: "Levine's Music",
