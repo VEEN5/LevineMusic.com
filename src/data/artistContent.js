@@ -50,9 +50,10 @@ export const artistContent = {
       subtitle: "Music",
       description:
         "We all have that dark and light side of us, but it's okay to balance both. Join me.",
-      backgroundImage: "",
+      backgroundImage: "/toxic-little-me-cover.webp",
       backgroundVideo: "/toxic-little-me-hero.mp4",
       watermark: "ENIVEL",
+      coverArt: "/toxic-little-me-cover.webp",
       releaseLinks: [
         { label: "Spotify", href: "https://open.spotify.com/album/1UQk2YZJW9fjYFVYx3udSm?si=EHmaB4CxR12h6EN58XFwJw" },
         { label: "Apple Music", href: "https://music.apple.com/us/album/toxic-little-me-single/6772158910" },

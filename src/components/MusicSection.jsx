@@ -37,6 +37,10 @@ export default function MusicSection({ content }) {
     };
   }, [currentBackgroundVideo]);
 
+  useEffect(() => {
+    setIsMuted(true);
+  }, [activeView, currentBackgroundVideo]);
+
   function handleToggleSound() {
     const video = videoRef.current;
     if (!video) return;
@@ -75,6 +79,7 @@ export default function MusicSection({ content }) {
         )}
         {showVideo ? (
           <video
+            key={`${activeView}-${currentBackgroundVideo}`}
             ref={videoRef}
             autoPlay
             muted
@@ -199,26 +204,38 @@ export default function MusicSection({ content }) {
                 ))}
               </div>
               <div className="mx-auto max-w-[17rem] sm:max-w-xs">
-                <div className="aspect-square overflow-hidden rounded-[1.5rem] border border-white/10 bg-[radial-gradient(circle_at_top,rgba(224,58,58,0.22),transparent_26%),linear-gradient(180deg,rgba(10,10,10,0.98),rgba(22,5,5,0.92))] p-6 shadow-[0_18px_50px_rgba(0,0,0,0.28)]">
-                  <div className="flex h-full flex-col justify-between text-left">
-                    <div>
-                      <p className="text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-stone-400">
-                        Music
-                      </p>
-                      <h3 className="mt-4 font-serif text-4xl leading-none text-white">
-                        Toxic Little Me
-                      </h3>
-                    </div>
-                    <div>
-                      <p className="text-[0.78rem] font-bold uppercase tracking-[0.34em] text-[#d94a4a]">
-                        ENIVEL
-                      </p>
-                      <p className="mt-2 text-sm leading-6 text-stone-200">
-                        Out now on every platform above.
-                      </p>
+                {content.snippets?.coverArt ? (
+                  <div className="overflow-hidden rounded-[1.5rem] border border-white/10 bg-black/45 shadow-[0_18px_50px_rgba(0,0,0,0.28)]">
+                    <img
+                      src={content.snippets.coverArt}
+                      alt={`${content.snippets.title} cover art`}
+                      loading="lazy"
+                      decoding="async"
+                      className="aspect-square w-full object-cover"
+                    />
+                  </div>
+                ) : (
+                  <div className="aspect-square overflow-hidden rounded-[1.5rem] border border-white/10 bg-[radial-gradient(circle_at_top,rgba(224,58,58,0.22),transparent_26%),linear-gradient(180deg,rgba(10,10,10,0.98),rgba(22,5,5,0.92))] p-6 shadow-[0_18px_50px_rgba(0,0,0,0.28)]">
+                    <div className="flex h-full flex-col justify-between text-left">
+                      <div>
+                        <p className="text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-stone-400">
+                          Music
+                        </p>
+                        <h3 className="mt-4 font-serif text-4xl leading-none text-white">
+                          Toxic Little Me
+                        </h3>
+                      </div>
+                      <div>
+                        <p className="text-[0.78rem] font-bold uppercase tracking-[0.34em] text-[#d94a4a]">
+                          ENIVEL
+                        </p>
+                        <p className="mt-2 text-sm leading-6 text-stone-200">
+                          Out now on every platform above.
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
+                )}
               </div>
             </>
           )}
