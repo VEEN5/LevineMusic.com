@@ -19,7 +19,7 @@ export const artistContent = {
   listenNowUrl: "https://linktr.ee/LevineSmith",
   spotifyUrl: releaseLinks[0].href,
   platformLinks: releaseLinks,
-  heroVideo: "/toxic-little-me-hero.mp4",
+  heroVideo: "/almost-there-hero.mp4",
   heroImage: "",
   showHeroPromo: false,
   showHeroPlatforms: false,
