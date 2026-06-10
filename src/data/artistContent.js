@@ -57,6 +57,44 @@ export const artistContent = {
       ],
       items: [],
     },
+    releases: [
+      {
+        title: "Temptation",
+        subtitle: "Music",
+        description:
+          "Levine - I do not think the music world is dark. I think where people come from is what makes their music dark. Life is fun, but it has a dark side too, and I think that is what makes it relatable. We have all been through things. Hope you enjoy.",
+        backgroundImage: temptationsCover,
+        backgroundVideo: "/hero-walk.mp4",
+        coverArt: temptationsCover,
+        platformLinks: releaseLinks,
+      },
+      {
+        title: "Toxic Little Me",
+        subtitle: "Music",
+        description:
+          "We all have that dark and light side of us, but it's okay to balance both. Join me.",
+        backgroundImage: "/toxic-little-me-cover.webp",
+        backgroundVideo: "/toxic-little-me-hero.mp4",
+        coverArt: "/toxic-little-me-cover.webp",
+        watermark: "ENIVEL",
+        platformLinks: [
+          { label: "Spotify", href: "https://open.spotify.com/album/1UQk2YZJW9fjYFVYx3udSm?si=EHmaB4CxR12h6EN58XFwJw" },
+          { label: "Apple Music", href: "https://music.apple.com/us/album/toxic-little-me-single/6772158910" },
+          { label: "SoundCloud", href: "https://soundcloud.com/levinesmith/toxic-little-me" },
+          { label: "YouTube", href: "https://youtu.be/UFjd2Oec9ac?si=wvVncHzq063WhDoE" },
+        ],
+      },
+      {
+        title: "Almost There",
+        subtitle: "Music",
+        description: "Dropping June 14.",
+        backgroundImage: "/almost-there-cover.png",
+        backgroundVideo: "/almost-there-hero.mp4",
+        coverArt: "/almost-there-cover.png",
+        watermark: "ALMOST",
+        platformLinks: [],
+      },
+    ],
   },
   about: {
     bio: "Music for overthinkers. Real emotions, real stories. Built to feel quiet, heavy, and honest.",
