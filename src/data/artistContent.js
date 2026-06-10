@@ -7,6 +7,13 @@ const releaseLinks = [
   { label: "YouTube", href: "https://www.youtube.com/watch?v=oy8kYbYEcM4" },
 ];
 
+const artistProfileLinks = [
+  { label: "Spotify", href: "https://open.spotify.com/artist/70OkZeqSvvUWVVDaEp7mXq" },
+  { label: "Apple Music", href: "https://music.apple.com/us/artist/levine/1895478668" },
+  { label: "SoundCloud", href: "https://soundcloud.com/levinesmith" },
+  { label: "YouTube", href: "https://www.youtube.com/@Levinesmith" },
+];
+
 // Update this file first when you want to change the artist name, release title, links, or images.
 export const artistContent = {
   artistName: "Levine",
@@ -14,7 +21,7 @@ export const artistContent = {
   heroLine: "",
   heroTeaserTitle: "Almost There",
   heroTeaserStatus: "Dropping June 14",
-  heroReleaseLinks: [],
+  heroReleaseLinks: artistProfileLinks,
   heroMusicLabel: "Levine's Music",
   listenNowUrl: "https://linktr.ee/LevineSmith",
   spotifyUrl: releaseLinks[0].href,
@@ -93,7 +100,12 @@ export const artistContent = {
         backgroundVideo: "/almost-there-hero.mp4",
         coverArt: "/almost-there-cover.png",
         watermark: "ALMOST",
-        platformLinks: [],
+        platformLinks: [
+          { label: "Spotify", href: "", status: "Dropping June 14" },
+          { label: "Apple Music", href: "", status: "Dropping June 14" },
+          { label: "SoundCloud", href: "", status: "Dropping June 14" },
+          { label: "YouTube", href: "", status: "Dropping June 14" },
+        ],
       },
     ],
   },

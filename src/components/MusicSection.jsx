@@ -172,17 +172,28 @@ export default function MusicSection({ content }) {
           ) : null}
           {currentPlatformLinks.length ? (
             <div className="mb-5 flex flex-wrap items-center justify-center gap-3">
-              {currentPlatformLinks.map((platform) => (
-                <a
-                  key={platform.label}
-                  href={platform.href}
-                  target="_blank"
-                  rel="noopener noreferrer external"
-                  className="rounded-full border border-white/15 bg-black/30 px-4 py-2 text-[0.72rem] font-semibold uppercase tracking-[0.22em] text-stone-100 transition hover:border-white/25 hover:text-white"
-                >
-                  {platform.label}
-                </a>
-              ))}
+              {currentPlatformLinks.map((platform) =>
+                platform.href ? (
+                  <a
+                    key={platform.label}
+                    href={platform.href}
+                    target="_blank"
+                    rel="noopener noreferrer external"
+                    className="rounded-full border border-white/15 bg-black/30 px-4 py-2 text-[0.72rem] font-semibold uppercase tracking-[0.22em] text-stone-100 transition hover:border-white/25 hover:text-white"
+                  >
+                    {platform.label}
+                  </a>
+                ) : (
+                  <button
+                    key={platform.label}
+                    type="button"
+                    onClick={() => window.alert(platform.status || "Coming soon")}
+                    className="rounded-full border border-white/15 bg-black/30 px-4 py-2 text-[0.72rem] font-semibold uppercase tracking-[0.22em] text-stone-100 transition hover:border-white/25 hover:text-white"
+                  >
+                    {platform.label}
+                  </button>
+                ),
+              )}
             </div>
           ) : null}
           <div className="mx-auto max-w-[17rem] sm:max-w-xs">
