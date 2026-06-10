@@ -4,6 +4,7 @@ export default function Hero({ content }) {
   const videoRef = useRef(null);
   const [isMuted, setIsMuted] = useState(true);
   const [showVideo, setShowVideo] = useState(false);
+  const [isSocialsOpen, setIsSocialsOpen] = useState(false);
   const showHeroPromo = content.showHeroPromo !== false;
   const showHeroPlatforms = content.showHeroPlatforms !== false;
   const showHeroCommunity = content.showHeroCommunity !== false;
@@ -105,6 +106,34 @@ export default function Hero({ content }) {
         <div className="absolute inset-x-0 bottom-0 h-32 bg-[linear-gradient(180deg,transparent,rgba(2,2,2,0.82))]" />
         <div className="grain-layer absolute inset-0" />
       </div>
+
+      {content.contact.socialLinks?.length ? (
+        <div className="absolute right-5 top-5 z-20 sm:right-8 sm:top-8">
+          <button
+            type="button"
+            onClick={() => setIsSocialsOpen((isOpen) => !isOpen)}
+            aria-expanded={isSocialsOpen}
+            className="rounded-full border border-white/15 bg-black/35 px-4 py-2 text-[0.68rem] font-bold uppercase tracking-[0.22em] text-stone-100 backdrop-blur-md transition hover:border-white/30 hover:bg-black/45"
+          >
+            Levine Socials
+          </button>
+          {isSocialsOpen ? (
+            <div className="mt-3 min-w-40 overflow-hidden rounded-2xl border border-white/10 bg-black/70 p-2 text-right shadow-[0_18px_45px_rgba(0,0,0,0.35)] backdrop-blur-md">
+              {content.contact.socialLinks.map((social) => (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer external"
+                  className="block rounded-xl px-4 py-3 text-[0.72rem] font-bold uppercase tracking-[0.22em] text-stone-100 transition hover:bg-white/10 hover:text-white"
+                >
+                  {social.label}
+                </a>
+              ))}
+            </div>
+          ) : null}
+        </div>
+      ) : null}
 
       <div className="relative z-10 mx-auto flex max-w-4xl flex-col items-center pt-10 text-center sm:pt-14">
         <h1 className="text-hero-glow reveal-up relative font-serif text-6xl font-bold uppercase tracking-[0.1em] text-white sm:text-7xl md:text-8xl">

@@ -115,7 +115,7 @@ export const artistContent = {
   contact: {
     bookingEmail: "booking@levinemusic.com",
     socialLinks: [
-      { label: "Instagram", href: "https://www.instagram.com/levinesmith_/" },
+      { label: "Instagram", href: "https://www.instagram.com/levinesmith_" },
       { label: "TikTok", href: "https://www.tiktok.com/@unknownveen" },
     ],
   },
