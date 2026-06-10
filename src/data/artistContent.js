@@ -87,7 +87,8 @@ export const artistContent = {
       {
         title: "Almost There",
         subtitle: "Music",
-        description: "Dropping June 14.",
+        description:
+          "I made this song on a personal note for anyone going through struggles with their mental health or dealing with things that feel heavy. I've been through experiences that changed me and helped me grow into a better person. One thing I've learned is that no matter what you're facing, you can get through it. Keep going. You're a lot stronger than you think.",
         backgroundImage: "/almost-there-cover.png",
         backgroundVideo: "/almost-there-hero.mp4",
         coverArt: "/almost-there-cover.png",
