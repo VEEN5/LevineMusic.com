@@ -61,6 +61,26 @@ export default function MusicSection({ content }) {
     setIsMuted(true);
   }, [activeReleaseIndex, currentBackgroundVideo]);
 
+  useEffect(() => {
+    function handleExternalSound(event) {
+      if (event.detail?.source === "music") return;
+
+      const video = videoRef.current;
+      if (!video) return;
+
+      video.muted = true;
+      video.pause();
+      video.currentTime = 0;
+      setIsMuted(true);
+    }
+
+    window.addEventListener("levine:sound-on", handleExternalSound);
+
+    return () => {
+      window.removeEventListener("levine:sound-on", handleExternalSound);
+    };
+  }, []);
+
   function handleToggleSound() {
     const video = videoRef.current;
     if (!video) return;
@@ -70,6 +90,7 @@ export default function MusicSection({ content }) {
     setIsMuted(nextMuted);
 
     if (!nextMuted) {
+      window.dispatchEvent(new CustomEvent("levine:sound-on", { detail: { source: "music" } }));
       video.currentTime = 0;
       video.play().catch(() => {
         video.muted = true;
