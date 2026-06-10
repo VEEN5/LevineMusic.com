@@ -113,7 +113,7 @@ export const artistContent = {
     bio: "Music for overthinkers. Real emotions, real stories. Built to feel quiet, heavy, and honest.",
   },
   contact: {
-    bookingEmail: "booking@levinemusic.com",
+    bookingEmail: "Levinesmith246@gmail.com",
     socialLinks: [
       { label: "Instagram", href: "https://www.instagram.com/levinesmith_" },
       { label: "TikTok", href: "https://www.tiktok.com/@unknownveen" },
