@@ -114,9 +114,9 @@ export const artistContent = {
         subtitle: "Music",
         description:
           "We face ego all the time, but we're never higher than God. Once we feel that we're higher, that's where we lose. Hope you enjoy.",
-        backgroundImage: "/broken-crown-cover.svg",
+        backgroundImage: "/broken-crown-cover.png",
         backgroundVideo: "/broken-crown-hero.mp4",
-        coverArt: "/broken-crown-cover.svg",
+        coverArt: "/broken-crown-cover.png",
         watermark: "CROWN",
         platformLinks: brokenCrownLinks,
       },
