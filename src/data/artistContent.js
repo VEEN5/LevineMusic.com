@@ -14,19 +14,24 @@ const artistProfileLinks = [
   { label: "YouTube", href: "https://www.youtube.com/@Levinesmith" },
 ];
 
+const brokenCrownLinks = [
+  { label: "Spotify", href: "https://open.spotify.com/album/5PSfdrvqxBOxAlBlgKjjEg" },
+  { label: "Apple Music", href: "https://music.apple.com/us/album/broken-crown-single/6789707204" },
+];
+
 // Update this file first when you want to change the artist name, release title, links, or images.
 export const artistContent = {
   artistName: "Levine",
   currentRelease: "Temptation",
   heroLine: "",
-  heroTeaserTitle: "Almost There",
+  heroTeaserTitle: "Broken Crown",
   heroTeaserStatus: "Out Now",
-  heroReleaseLinks: artistProfileLinks,
+  heroReleaseLinks: brokenCrownLinks,
   heroMusicLabel: "Levine's Music",
   listenNowUrl: "https://linktr.ee/LevineSmith",
   spotifyUrl: releaseLinks[0].href,
   platformLinks: releaseLinks,
-  heroVideo: "/almost-there-hero.mp4",
+  heroVideo: "/broken-crown-hero.mp4",
   heroImage: "",
   showHeroPromo: false,
   showHeroPlatforms: false,
