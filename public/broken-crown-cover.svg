@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" role="img" aria-labelledby="title desc">
+  <title id="title">Broken Crown cover placeholder</title>
+  <desc id="desc">Dark red and black cover art for Broken Crown by Levine.</desc>
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="42%" r="55%">
+      <stop offset="0%" stop-color="#6f1111"/>
+      <stop offset="48%" stop-color="#160404"/>
+      <stop offset="100%" stop-color="#020202"/>
+    </radialGradient>
+    <filter id="noise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.32"/>
+      </feComponentTransfer>
+    </filter>
+  </defs>
+  <rect width="1200" height="1200" fill="url(#glow)"/>
+  <rect width="1200" height="1200" filter="url(#noise)" opacity="0.42"/>
+  <path d="M255 495l145-130 120 170 105-240 128 240 118-170 108 130-94 195H348z" fill="none" stroke="#d43a3a" stroke-width="28" stroke-linejoin="round"/>
+  <path d="M348 690h537" stroke="#e7e1d7" stroke-width="20" stroke-linecap="round" opacity="0.86"/>
+  <text x="600" y="840" fill="#f1ece4" font-family="Georgia, 'Times New Roman', serif" font-size="108" font-weight="700" letter-spacing="12" text-anchor="middle">BROKEN</text>
+  <text x="600" y="950" fill="#b31717" font-family="Georgia, 'Times New Roman', serif" font-size="116" font-weight="700" letter-spacing="14" text-anchor="middle">CROWN</text>
+  <text x="600" y="1038" fill="#f1ece4" font-family="Arial, sans-serif" font-size="28" font-weight="700" letter-spacing="12" text-anchor="middle">LEVINE</text>
+</svg>

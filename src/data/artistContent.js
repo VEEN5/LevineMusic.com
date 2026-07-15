@@ -109,6 +109,17 @@ export const artistContent = {
         watermark: "ALMOST",
         platformLinks: artistProfileLinks,
       },
+      {
+        title: "Broken Crown",
+        subtitle: "Music",
+        description:
+          "We face ego all the time, but we're never higher than God. Once we feel that we're higher, that's where we lose. Hope you enjoy.",
+        backgroundImage: "/broken-crown-cover.svg",
+        backgroundVideo: "/broken-crown-hero.mp4",
+        coverArt: "/broken-crown-cover.svg",
+        watermark: "CROWN",
+        platformLinks: brokenCrownLinks,
+      },
     ],
   },
   about: {
@@ -118,7 +129,7 @@ export const artistContent = {
     bookingEmail: "Levinesmith246@gmail.com",
     socialLinks: [
       { label: "Instagram", href: "https://www.instagram.com/levinesmith_" },
-      { label: "TikTok", href: "https://www.tiktok.com/@unknownveen" },
+      { label: "TikTok", href: "https://www.tiktok.com/@saylevine" },
     ],
   },
 };
