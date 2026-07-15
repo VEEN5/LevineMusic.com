@@ -17,6 +17,8 @@ const artistProfileLinks = [
 const brokenCrownLinks = [
   { label: "Spotify", href: "https://open.spotify.com/album/5PSfdrvqxBOxAlBlgKjjEg" },
   { label: "Apple Music", href: "https://music.apple.com/us/album/broken-crown-single/6789707204" },
+  { label: "SoundCloud", href: "https://soundcloud.com/levinesmith/tracks" },
+  { label: "YouTube", href: "https://www.youtube.com/@Levinesmith" },
 ];
 
 // Update this file first when you want to change the artist name, release title, links, or images.
