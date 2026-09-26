@@ -107,7 +107,12 @@ export const artistContent = {
         backgroundVideo: "/almost-there-hero.mp4",
         coverArt: "/almost-there-cover-new.jpg",
         watermark: "ALMOST",
-        platformLinks: artistProfileLinks,
+        platformLinks: [
+          { label: "Spotify", href: "https://open.spotify.com/album/48y9AY6oNQkpFrgRrV60T6" },
+          { label: "Apple Music", href: "https://music.apple.com/us/album/almost-there-single/6779420377" },
+          { label: "SoundCloud", href: "https://soundcloud.com/levinesmith/almost-there?si=7256881891ff4194886a03df8c76d719&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing" },
+          { label: "YouTube", href: "https://www.youtube.com/watch?v=NHINPnC9jq4" },
+        ],
       },
       {
         title: "Broken Crown",
