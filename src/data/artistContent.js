@@ -1,4 +1,4 @@
-import temptationsCover from "../assets/temptations-cover.png";
+import temptationsCover from "../assets/temptations-cover-new.jpg";
 
 const releaseLinks = [
   { label: "Spotify", href: "https://open.spotify.com/album/3gqFDs8SUPl3xbqpUkKRS0" },
@@ -59,10 +59,10 @@ export const artistContent = {
       subtitle: "Music",
       description:
         "We all have that dark and light side of us, but it's okay to balance both. Join me.",
-      backgroundImage: "/toxic-little-me-cover.webp",
+      backgroundImage: "/toxic-little-me-cover-new.jpg",
       backgroundVideo: "/toxic-little-me-hero.mp4",
       watermark: "ENIVEL",
-      coverArt: "/toxic-little-me-cover.webp",
+      coverArt: "/toxic-little-me-cover-new.jpg",
       releaseLinks: [
         { label: "Spotify", href: "https://open.spotify.com/album/1UQk2YZJW9fjYFVYx3udSm?si=EHmaB4CxR12h6EN58XFwJw" },
         { label: "Apple Music", href: "https://music.apple.com/us/album/toxic-little-me-single/6772158910" },
@@ -87,9 +87,9 @@ export const artistContent = {
         subtitle: "Music",
         description:
           "We all have that dark and light side of us, but it's okay to balance both. Join me.",
-        backgroundImage: "/toxic-little-me-cover.webp",
+        backgroundImage: "/toxic-little-me-cover-new.jpg",
         backgroundVideo: "/toxic-little-me-hero.mp4",
-        coverArt: "/toxic-little-me-cover.webp",
+        coverArt: "/toxic-little-me-cover-new.jpg",
         watermark: "ENIVEL",
         platformLinks: [
           { label: "Spotify", href: "https://open.spotify.com/album/1UQk2YZJW9fjYFVYx3udSm?si=EHmaB4CxR12h6EN58XFwJw" },
@@ -103,9 +103,9 @@ export const artistContent = {
         subtitle: "Music",
         description:
           "I made this song on a personal note for anyone going through struggles with their mental health or dealing with things that feel heavy. I've been through experiences that changed me and helped me grow into a better person. One thing I've learned is that no matter what you're facing, you can get through it. Keep going. You're a lot stronger than you think.",
-        backgroundImage: "/almost-there-cover.png",
+        backgroundImage: "/almost-there-cover-new.jpg",
         backgroundVideo: "/almost-there-hero.mp4",
-        coverArt: "/almost-there-cover.png",
+        coverArt: "/almost-there-cover-new.jpg",
         watermark: "ALMOST",
         platformLinks: artistProfileLinks,
       },
@@ -114,9 +114,9 @@ export const artistContent = {
         subtitle: "Music",
         description:
           "We face ego all the time, but we're never higher than God. Once we feel that we're higher, that's where we lose. Hope you enjoy.",
-        backgroundImage: "/broken-crown-cover.png",
+        backgroundImage: "/broken-crown-cover-new.jpg",
         backgroundVideo: "/broken-crown-hero.mp4",
-        coverArt: "/broken-crown-cover.png",
+        coverArt: "/broken-crown-cover-new.jpg",
         watermark: "CROWN",
         platformLinks: brokenCrownLinks,
       },
