@@ -28,7 +28,7 @@ export const artistContent = {
   heroLine: "",
   heroTeaserTitle: "Mourn",
   heroTeaserStatus: "Coming Soon",
-  heroReleaseLinks: brokenCrownLinks,
+  heroReleaseLinks: artistProfileLinks,
   heroMusicLabel: "Levine's Music",
   listenNowUrl: "https://linktr.ee/LevineSmith",
   spotifyUrl: releaseLinks[0].href,
