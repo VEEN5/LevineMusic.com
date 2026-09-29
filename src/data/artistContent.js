@@ -27,7 +27,7 @@ export const artistContent = {
   currentRelease: "Temptation",
   heroLine: "",
   heroTeaserTitle: "Mourn",
-  heroTeaserStatus: "Coming Soon",
+  heroTeaserStatus: "Mourn Drops This Friday",
   heroReleaseLinks: artistProfileLinks,
   heroMusicLabel: "Levine's Music",
   listenNowUrl: "https://linktr.ee/LevineSmith",

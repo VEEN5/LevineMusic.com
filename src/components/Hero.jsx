@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 
 export default function Hero({ content }) {
+  const sectionRef = useRef(null);
   const videoRef = useRef(null);
-  const [isMuted, setIsMuted] = useState(true);
   const [showVideo, setShowVideo] = useState(false);
+  const [isInView, setIsInView] = useState(false);
   const [isSocialsOpen, setIsSocialsOpen] = useState(false);
   const showHeroPromo = content.showHeroPromo !== false;
   const showHeroPlatforms = content.showHeroPlatforms !== false;
@@ -34,6 +35,19 @@ export default function Hero({ content }) {
   }, [content.heroVideo]);
 
   useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return undefined;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsInView(entry.isIntersecting),
+      { threshold: 0.45 },
+    );
+
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
     function handleExternalSound(event) {
       if (event.detail?.source === "hero") return;
 
@@ -43,7 +57,6 @@ export default function Hero({ content }) {
       video.muted = true;
       video.pause();
       video.currentTime = 0;
-      setIsMuted(true);
     }
 
     window.addEventListener("levine:sound-on", handleExternalSound);
@@ -53,30 +66,56 @@ export default function Hero({ content }) {
     };
   }, []);
 
-  function handleToggleSound() {
+  useEffect(() => {
     const video = videoRef.current;
-    if (!video) return;
-
-    const nextMuted = !video.muted;
-    video.muted = nextMuted;
-    setIsMuted(nextMuted);
-
-    if (!nextMuted) {
-      window.dispatchEvent(new CustomEvent("levine:sound-on", { detail: { source: "hero" } }));
-      video.currentTime = 0;
-      video.play().catch(() => {
+    if (!video || !showVideo || !isInView) {
+      if (video) {
         video.muted = true;
-        setIsMuted(true);
+        video.pause();
+        video.currentTime = 0;
+      }
+      return undefined;
+    }
+
+    let cancelled = false;
+    const interactionEvents = ["pointerdown", "keydown", "touchstart"];
+
+    const removeInteractionListeners = () => {
+      interactionEvents.forEach((eventName) => {
+        window.removeEventListener(eventName, startWithSound);
       });
-    } else {
+    };
+
+    function startWithSound() {
+      if (cancelled) return;
+
+      removeInteractionListeners();
+      video.muted = false;
+      video.currentTime = 0;
+      video.play().then(() => {
+        window.dispatchEvent(new CustomEvent("levine:sound-on", { detail: { source: "hero" } }));
+      }).catch(() => {
+        video.muted = true;
+        video.play().catch(() => {});
+        interactionEvents.forEach((eventName) => {
+          window.addEventListener(eventName, startWithSound, { once: true, passive: true });
+        });
+      });
+    }
+
+    startWithSound();
+
+    return () => {
+      cancelled = true;
+      removeInteractionListeners();
+      video.muted = true;
       video.pause();
       video.currentTime = 0;
-      video.play().catch(() => {});
-    }
-  }
+    };
+  }, [isInView, showVideo, content.heroVideo]);
 
   return (
-    <section className="relative flex min-h-screen items-center justify-center overflow-hidden px-5 py-10 sm:px-8">
+    <section ref={sectionRef} className="relative flex min-h-screen items-center justify-center overflow-hidden px-5 py-10 sm:px-8">
       <div className="absolute inset-0">
         {content.heroImage ? (
           <img
@@ -159,15 +198,6 @@ export default function Hero({ content }) {
             </span>
           </span>
         </h1>
-        {showVideo ? (
-          <button
-            type="button"
-            onClick={handleToggleSound}
-            className="mb-8 mt-6 rounded-full border border-white/15 bg-black/25 px-4 py-2 text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-stone-200 transition hover:border-white/25 hover:bg-black/35"
-          >
-            {isMuted ? "Tap for Sound" : "Sound On"}
-          </button>
-        ) : null}
         {content.heroTeaserTitle ? (
           <div className="reveal-up reveal-delay-1 text-center">
             <p className="text-soft-glow text-2xl font-black uppercase tracking-[0.16em] text-white sm:text-3xl">

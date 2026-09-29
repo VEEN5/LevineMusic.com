@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 
 export default function MusicSection({ content }) {
+  const sectionRef = useRef(null);
   const videoRef = useRef(null);
   const [showVideo, setShowVideo] = useState(false);
   const [activeReleaseIndex, setActiveReleaseIndex] = useState(0);
-  const [soundEnabled, setSoundEnabled] = useState(false);
-  const [isMuted, setIsMuted] = useState(true);
+  const [isInView, setIsInView] = useState(false);
   const releases = content.releases?.length
     ? content.releases
     : [
@@ -59,41 +59,65 @@ export default function MusicSection({ content }) {
   }, [currentBackgroundVideo]);
 
   useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return undefined;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsInView(entry.isIntersecting),
+      { threshold: 0.45 },
+    );
+
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
     const video = videoRef.current;
-    if (!video) return undefined;
-
-    const startCurrentSong = () => {
-      if (!soundEnabled) return;
-
-      video.muted = false;
-      video.currentTime = 0;
-      setIsMuted(false);
-      window.dispatchEvent(new CustomEvent("levine:sound-on", { detail: { source: "music" } }));
-      video.play().catch(() => {
+    if (!video || !showVideo || !isInView) {
+      if (video) {
         video.muted = true;
-        setSoundEnabled(false);
-        setIsMuted(true);
+        video.pause();
+        video.currentTime = 0;
+      }
+      return undefined;
+    }
+
+    let cancelled = false;
+    const interactionEvents = ["pointerdown", "keydown", "touchstart"];
+
+    const removeInteractionListeners = () => {
+      interactionEvents.forEach((eventName) => {
+        window.removeEventListener(eventName, startCurrentSong);
       });
     };
 
-    video.muted = !soundEnabled;
-    setIsMuted(!soundEnabled);
+    function startCurrentSong() {
+      if (cancelled) return;
 
-    if (soundEnabled) {
-      if (video.readyState >= 2) {
-        startCurrentSong();
-      } else {
-        video.addEventListener("canplay", startCurrentSong, { once: true });
-      }
+      removeInteractionListeners();
+      video.muted = false;
+      video.currentTime = 0;
+      video.play().then(() => {
+        window.dispatchEvent(new CustomEvent("levine:sound-on", { detail: { source: "music" } }));
+      }).catch(() => {
+        video.muted = true;
+        video.play().catch(() => {});
+        interactionEvents.forEach((eventName) => {
+          window.addEventListener(eventName, startCurrentSong, { once: true, passive: true });
+        });
+      });
     }
 
+    startCurrentSong();
+
     return () => {
-      video.removeEventListener("canplay", startCurrentSong);
+      cancelled = true;
+      removeInteractionListeners();
       video.muted = true;
       video.pause();
       video.currentTime = 0;
     };
-  }, [activeReleaseIndex, currentBackgroundVideo, showVideo, soundEnabled]);
+  }, [activeReleaseIndex, currentBackgroundVideo, isInView, showVideo]);
 
   useEffect(() => {
     function handleExternalSound(event) {
@@ -105,7 +129,6 @@ export default function MusicSection({ content }) {
       video.muted = true;
       video.pause();
       video.currentTime = 0;
-      setIsMuted(true);
     }
 
     window.addEventListener("levine:sound-on", handleExternalSound);
@@ -115,33 +138,8 @@ export default function MusicSection({ content }) {
     };
   }, []);
 
-  function handleToggleSound() {
-    const video = videoRef.current;
-    if (!video) return;
-
-    if (isMuted) {
-      video.muted = false;
-      video.currentTime = 0;
-      setSoundEnabled(true);
-      setIsMuted(false);
-      window.dispatchEvent(new CustomEvent("levine:sound-on", { detail: { source: "music" } }));
-      video.play().catch(() => {
-        video.muted = true;
-        setSoundEnabled(false);
-        setIsMuted(true);
-      });
-    } else {
-      video.muted = true;
-      video.pause();
-      video.currentTime = 0;
-      setSoundEnabled(false);
-      setIsMuted(true);
-      video.play().catch(() => {});
-    }
-  }
-
   return (
-    <section id="music" className="relative overflow-hidden scroll-mt-6 py-12 sm:scroll-mt-10 sm:py-16">
+    <section ref={sectionRef} id="music" className="relative overflow-hidden scroll-mt-6 py-12 sm:scroll-mt-10 sm:py-16">
       <div className="absolute inset-0">
         {currentBackgroundImage ? (
           <img
@@ -160,7 +158,7 @@ export default function MusicSection({ content }) {
             key={`${activeReleaseIndex}-${currentBackgroundVideo}`}
             ref={videoRef}
             autoPlay
-            muted={isMuted}
+            muted
             loop
             playsInline
             preload="metadata"
@@ -217,17 +215,6 @@ export default function MusicSection({ content }) {
         </div>
 
         <div className="mt-8 overflow-hidden rounded-[2rem] border border-white/10 bg-black/35 p-4 shadow-[0_28px_90px_rgba(0,0,0,0.34)] backdrop-blur-md sm:p-6">
-          {showVideo ? (
-            <div className="mb-5 flex justify-center">
-              <button
-                type="button"
-                onClick={handleToggleSound}
-                className="rounded-full border border-white/15 bg-black/25 px-4 py-2 text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-stone-200 transition hover:border-white/25 hover:bg-black/35"
-              >
-                {isMuted ? "Tap for Sound" : "Sound On"}
-              </button>
-            </div>
-          ) : null}
           {currentPlatformLinks.length ? (
             <div className="mb-5 flex flex-wrap items-center justify-center gap-3">
               {currentPlatformLinks.map((platform) =>
