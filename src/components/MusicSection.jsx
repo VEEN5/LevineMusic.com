@@ -4,6 +4,7 @@ export default function MusicSection({ content }) {
   const videoRef = useRef(null);
   const [showVideo, setShowVideo] = useState(false);
   const [activeReleaseIndex, setActiveReleaseIndex] = useState(0);
+  const [soundEnabled, setSoundEnabled] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
   const releases = content.releases?.length
     ? content.releases
@@ -58,8 +59,41 @@ export default function MusicSection({ content }) {
   }, [currentBackgroundVideo]);
 
   useEffect(() => {
-    setIsMuted(true);
-  }, [activeReleaseIndex, currentBackgroundVideo]);
+    const video = videoRef.current;
+    if (!video) return undefined;
+
+    const startCurrentSong = () => {
+      if (!soundEnabled) return;
+
+      video.muted = false;
+      video.currentTime = 0;
+      setIsMuted(false);
+      window.dispatchEvent(new CustomEvent("levine:sound-on", { detail: { source: "music" } }));
+      video.play().catch(() => {
+        video.muted = true;
+        setSoundEnabled(false);
+        setIsMuted(true);
+      });
+    };
+
+    video.muted = !soundEnabled;
+    setIsMuted(!soundEnabled);
+
+    if (soundEnabled) {
+      if (video.readyState >= 2) {
+        startCurrentSong();
+      } else {
+        video.addEventListener("canplay", startCurrentSong, { once: true });
+      }
+    }
+
+    return () => {
+      video.removeEventListener("canplay", startCurrentSong);
+      video.muted = true;
+      video.pause();
+      video.currentTime = 0;
+    };
+  }, [activeReleaseIndex, currentBackgroundVideo, showVideo, soundEnabled]);
 
   useEffect(() => {
     function handleExternalSound(event) {
@@ -85,20 +119,23 @@ export default function MusicSection({ content }) {
     const video = videoRef.current;
     if (!video) return;
 
-    const nextMuted = !video.muted;
-    video.muted = nextMuted;
-    setIsMuted(nextMuted);
-
-    if (!nextMuted) {
-      window.dispatchEvent(new CustomEvent("levine:sound-on", { detail: { source: "music" } }));
+    if (isMuted) {
+      video.muted = false;
       video.currentTime = 0;
+      setSoundEnabled(true);
+      setIsMuted(false);
+      window.dispatchEvent(new CustomEvent("levine:sound-on", { detail: { source: "music" } }));
       video.play().catch(() => {
         video.muted = true;
+        setSoundEnabled(false);
         setIsMuted(true);
       });
     } else {
+      video.muted = true;
       video.pause();
       video.currentTime = 0;
+      setSoundEnabled(false);
+      setIsMuted(true);
       video.play().catch(() => {});
     }
   }
@@ -123,7 +160,7 @@ export default function MusicSection({ content }) {
             key={`${activeReleaseIndex}-${currentBackgroundVideo}`}
             ref={videoRef}
             autoPlay
-            muted
+            muted={isMuted}
             loop
             playsInline
             preload="metadata"
