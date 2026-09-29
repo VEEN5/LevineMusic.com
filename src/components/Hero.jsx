@@ -1,10 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 
 export default function Hero({ content }) {
-  const sectionRef = useRef(null);
   const videoRef = useRef(null);
   const [showVideo, setShowVideo] = useState(false);
-  const [isInView, setIsInView] = useState(false);
   const [isSocialsOpen, setIsSocialsOpen] = useState(false);
   const showHeroPromo = content.showHeroPromo !== false;
   const showHeroPlatforms = content.showHeroPlatforms !== false;
@@ -35,19 +33,6 @@ export default function Hero({ content }) {
   }, [content.heroVideo]);
 
   useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return undefined;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsInView(entry.isIntersecting),
-      { threshold: 0.45 },
-    );
-
-    observer.observe(section);
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
     function handleExternalSound(event) {
       if (event.detail?.source === "hero") return;
 
@@ -68,7 +53,7 @@ export default function Hero({ content }) {
 
   useEffect(() => {
     const video = videoRef.current;
-    if (!video || !showVideo || !isInView) {
+    if (!video || !showVideo) {
       if (video) {
         video.muted = true;
         video.pause();
@@ -112,10 +97,10 @@ export default function Hero({ content }) {
       video.pause();
       video.currentTime = 0;
     };
-  }, [isInView, showVideo, content.heroVideo]);
+  }, [showVideo, content.heroVideo]);
 
   return (
-    <section ref={sectionRef} className="relative flex min-h-screen items-center justify-center overflow-hidden px-5 py-10 sm:px-8">
+    <section className="relative flex min-h-screen items-center justify-center overflow-hidden px-5 py-10 sm:px-8">
       <div className="absolute inset-0">
         {content.heroImage ? (
           <img
