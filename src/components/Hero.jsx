@@ -5,7 +5,6 @@ export default function Hero({ content }) {
   const [isMuted, setIsMuted] = useState(true);
   const [showVideo, setShowVideo] = useState(false);
   const [isSocialsOpen, setIsSocialsOpen] = useState(false);
-  const [isMournAnnouncementOpen, setIsMournAnnouncementOpen] = useState(true);
   const showHeroPromo = content.showHeroPromo !== false;
   const showHeroPlatforms = content.showHeroPlatforms !== false;
   const showHeroCommunity = content.showHeroCommunity !== false;
@@ -78,37 +77,6 @@ export default function Hero({ content }) {
 
   return (
     <section className="relative flex min-h-screen items-center justify-center overflow-hidden px-5 py-10 sm:px-8">
-      {isMournAnnouncementOpen ? (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-5 py-8 backdrop-blur-sm"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="mourn-announcement-title"
-        >
-          <div className="relative w-full max-w-md rounded-3xl border border-white/20 bg-[#120606] p-7 text-center shadow-[0_28px_90px_rgba(0,0,0,0.55)] sm:p-9">
-            <button
-              type="button"
-              onClick={() => setIsMournAnnouncementOpen(false)}
-              aria-label="Close Mourn announcement"
-              className="absolute right-3 top-3 inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/25 bg-black/45 text-3xl leading-none text-white transition hover:border-white/60 hover:bg-black/70 focus:outline-none focus:ring-2 focus:ring-white"
-            >
-              <span aria-hidden="true">×</span>
-            </button>
-            <p className="text-[0.7rem] font-bold uppercase tracking-[0.34em] text-[#d94a4a]">New single</p>
-            <h2 id="mourn-announcement-title" className="mt-4 pr-8 font-serif text-4xl font-bold uppercase tracking-[0.08em] text-white sm:text-5xl">
-              Mourn drops this Friday
-            </h2>
-            <a
-              href="https://distrokid.com/hyperfollow/levine1/mourn"
-              target="_blank"
-              rel="noopener noreferrer external"
-              className="button-primary mt-8 inline-flex min-h-12 items-center justify-center px-6"
-            >
-              Pre-save on Spotify
-            </a>
-          </div>
-        </div>
-      ) : null}
       <div className="absolute inset-0">
         {content.heroImage ? (
           <img
