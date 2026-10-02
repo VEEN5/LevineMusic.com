@@ -30,6 +30,11 @@ export default function Hero({ content }) {
   const showHeroCommunity = content.showHeroCommunity !== false;
   const isMournReleased = timeUntilMournRelease === 0;
   const countdownParts = getCountdownParts(timeUntilMournRelease);
+  const hasMournTrackLinks = content.mournTrackLinks?.length === content.heroReleaseLinks?.length
+    && content.mournTrackLinks.every((platform) => platform.href);
+  const heroReleaseLinks = isMournReleased && hasMournTrackLinks
+    ? content.mournTrackLinks
+    : content.heroReleaseLinks;
 
   useEffect(() => {
     const updateCountdown = () => {
@@ -208,7 +213,7 @@ export default function Hero({ content }) {
             </p>
             {content.heroTeaserStatus && isMournReleased ? (
               <p className="mt-2 text-[0.78rem] font-bold uppercase tracking-[0.42em] text-[#d94a4a] sm:text-[0.82rem]">
-                Mourn Out Now
+                Mourn — Out Now
               </p>
             ) : null}
             {content.heroTeaserStatus && !isMournReleased ? (
@@ -234,9 +239,9 @@ export default function Hero({ content }) {
             ) : null}
           </div>
         ) : null}
-        {content.heroReleaseLinks?.length ? (
+        {heroReleaseLinks?.length ? (
           <div className="reveal-up reveal-delay-2 mt-6 flex max-w-3xl flex-wrap items-center justify-center gap-3">
-            {content.heroReleaseLinks.map((platform) =>
+            {heroReleaseLinks.map((platform) =>
               platform.href ? (
                 <a
                   key={platform.label}

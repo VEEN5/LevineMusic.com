@@ -1,4 +1,5 @@
 import temptationsCover from "../assets/temptations-cover-new.jpg";
+import mournCover from "../assets/mourn-cover.jpg";
 
 const releaseLinks = [
   { label: "Spotify", href: "https://open.spotify.com/album/3gqFDs8SUPl3xbqpUkKRS0" },
@@ -13,6 +14,9 @@ const artistProfileLinks = [
   { label: "SoundCloud", href: "https://soundcloud.com/levinesmith" },
   { label: "YouTube", href: "https://www.youtube.com/@Levinesmith" },
 ];
+
+// Add the exact Mourn track URLs here when they are available.
+const mournTrackLinks = [];
 
 const brokenCrownLinks = [
   { label: "Spotify", href: "https://open.spotify.com/album/5PSfdrvqxBOxAlBlgKjjEg" },
@@ -29,6 +33,7 @@ export const artistContent = {
   heroTeaserTitle: "Mourn",
   heroTeaserStatus: "Mourn Drops This Friday",
   heroReleaseLinks: artistProfileLinks,
+  mournTrackLinks,
   heroMusicLabel: "Levine's Music",
   listenNowUrl: "https://linktr.ee/LevineSmith",
   spotifyUrl: releaseLinks[0].href,
@@ -124,6 +129,17 @@ export const artistContent = {
         coverArt: "/broken-crown-cover-new.jpg",
         watermark: "CROWN",
         platformLinks: brokenCrownLinks,
+      },
+      {
+        title: "Mourn",
+        subtitle: "Music",
+        description: "Mourn — Out Now.",
+        backgroundImage: mournCover,
+        backgroundVideo: "/mourn-hero.mp4",
+        coverArt: mournCover,
+        watermark: "MOURN",
+        platformLinks: mournTrackLinks,
+        availableAt: "2026-10-02T00:00:00-04:00",
       },
     ],
   },
