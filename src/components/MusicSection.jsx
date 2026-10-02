@@ -6,8 +6,7 @@ export default function MusicSection({ content }) {
   const [showVideo, setShowVideo] = useState(false);
   const [activeReleaseIndex, setActiveReleaseIndex] = useState(0);
   const [isInView, setIsInView] = useState(false);
-  const [currentTime, setCurrentTime] = useState(() => Date.now());
-  const allReleases = content.releases?.length
+  const releases = content.releases?.length
     ? content.releases
     : [
         {
@@ -30,21 +29,10 @@ export default function MusicSection({ content }) {
           platformLinks: content.snippets?.releaseLinks,
         },
       ].filter((release) => release.title);
-  const releases = allReleases.filter((release) => {
-    if (!release.availableAt) return true;
-
-    return new Date(release.availableAt).getTime() <= currentTime;
-  });
   const activeRelease = releases[activeReleaseIndex] || releases[0];
   const currentBackgroundImage = activeRelease?.backgroundImage || "";
   const currentBackgroundVideo = activeRelease?.backgroundVideo || "";
   const currentPlatformLinks = activeRelease?.platformLinks || [];
-
-  useEffect(() => {
-    const interval = window.setInterval(() => setCurrentTime(Date.now()), 1000);
-
-    return () => window.clearInterval(interval);
-  }, []);
 
   useEffect(() => {
     const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");

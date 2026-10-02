@@ -139,7 +139,6 @@ export const artistContent = {
         coverArt: mournCover,
         watermark: "MOURN",
         platformLinks: mournTrackLinks,
-        availableAt: "2026-10-02T00:00:00-04:00",
       },
     ],
   },
