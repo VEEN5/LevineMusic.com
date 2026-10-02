@@ -15,7 +15,12 @@ const artistProfileLinks = [
   { label: "YouTube", href: "https://www.youtube.com/@Levinesmith" },
 ];
 
-const mournTrackLinks = artistProfileLinks;
+const mournTrackLinks = [
+  { label: "Spotify", href: "https://open.spotify.com/track/4CeKpL7nDatODvuUmgHZFV" },
+  { label: "Apple Music", href: "https://music.apple.com/us/album/mourn-single/6816171905" },
+  { label: "SoundCloud", href: "https://soundcloud.com/levinesmith/mourn?si=7dbebf47c92e4b5288084687a088db14&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing" },
+  { label: "YouTube", href: "https://youtu.be/_DsX5Mk0UR8?si=1hHmzZABKOjACqF4" },
+];
 
 const brokenCrownLinks = [
   { label: "Spotify", href: "https://open.spotify.com/album/5PSfdrvqxBOxAlBlgKjjEg" },
