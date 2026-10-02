@@ -15,8 +15,7 @@ const artistProfileLinks = [
   { label: "YouTube", href: "https://www.youtube.com/@Levinesmith" },
 ];
 
-// Add the exact Mourn track URLs here when they are available.
-const mournTrackLinks = [];
+const mournTrackLinks = artistProfileLinks;
 
 const brokenCrownLinks = [
   { label: "Spotify", href: "https://open.spotify.com/album/5PSfdrvqxBOxAlBlgKjjEg" },
@@ -133,7 +132,8 @@ export const artistContent = {
       {
         title: "Mourn",
         subtitle: "Music",
-        description: "Mourn — Out Now.",
+        description:
+          "For anyone who’s been in a toxic relationship, it can feel contradictory. Two people can both be hurting and feel like victims, but they may express their pain differently. Sometimes you’re left watching each other mourn what the relationship became, even while you still miss each other.",
         backgroundImage: mournCover,
         backgroundVideo: "/mourn-hero.mp4",
         coverArt: mournCover,
