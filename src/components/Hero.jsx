@@ -1,13 +1,43 @@
 import { useEffect, useRef, useState } from "react";
 
+const MOURN_RELEASE_TIME = new Date("2026-10-02T00:00:00-04:00").getTime();
+
+function formatCountdown(milliseconds) {
+  const totalSeconds = Math.max(0, Math.floor(milliseconds / 1000));
+  const days = Math.floor(totalSeconds / 86400);
+  const hours = Math.floor((totalSeconds % 86400) / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+
+  return `${days}d ${String(hours).padStart(2, "0")}h ${String(minutes).padStart(2, "0")}m ${String(seconds).padStart(2, "0")}s`;
+}
+
 export default function Hero({ content }) {
   const videoRef = useRef(null);
   const [isMuted, setIsMuted] = useState(true);
   const [showVideo, setShowVideo] = useState(false);
   const [isSocialsOpen, setIsSocialsOpen] = useState(false);
+  const [timeUntilMournRelease, setTimeUntilMournRelease] = useState(() =>
+    Math.max(0, MOURN_RELEASE_TIME - Date.now()),
+  );
   const showHeroPromo = content.showHeroPromo !== false;
   const showHeroPlatforms = content.showHeroPlatforms !== false;
   const showHeroCommunity = content.showHeroCommunity !== false;
+  const isMournReleased = timeUntilMournRelease === 0;
+  const heroReleaseStatus = isMournReleased
+    ? "Mourn Out Now"
+    : `Mourn drops in ${formatCountdown(timeUntilMournRelease)}`;
+
+  useEffect(() => {
+    const updateCountdown = () => {
+      setTimeUntilMournRelease(Math.max(0, MOURN_RELEASE_TIME - Date.now()));
+    };
+
+    updateCountdown();
+    const interval = window.setInterval(updateCountdown, 1000);
+
+    return () => window.clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -175,7 +205,7 @@ export default function Hero({ content }) {
             </p>
             {content.heroTeaserStatus ? (
               <p className="mt-2 text-[0.78rem] font-bold uppercase tracking-[0.42em] text-[#d94a4a] sm:text-[0.82rem]">
-                {content.heroTeaserStatus}
+                {heroReleaseStatus}
               </p>
             ) : null}
           </div>
