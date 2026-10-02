@@ -2,14 +2,19 @@ import { useEffect, useRef, useState } from "react";
 
 const MOURN_RELEASE_TIME = new Date("2026-10-02T00:00:00-04:00").getTime();
 
-function formatCountdown(milliseconds) {
+function getCountdownParts(milliseconds) {
   const totalSeconds = Math.max(0, Math.floor(milliseconds / 1000));
   const days = Math.floor(totalSeconds / 86400);
   const hours = Math.floor((totalSeconds % 86400) / 3600);
   const minutes = Math.floor((totalSeconds % 3600) / 60);
   const seconds = totalSeconds % 60;
 
-  return `${days}d ${String(hours).padStart(2, "0")}h ${String(minutes).padStart(2, "0")}m ${String(seconds).padStart(2, "0")}s`;
+  return [
+    { label: "Days", value: String(days) },
+    { label: "Hours", value: String(hours).padStart(2, "0") },
+    { label: "Minutes", value: String(minutes).padStart(2, "0") },
+    { label: "Seconds", value: String(seconds).padStart(2, "0") },
+  ];
 }
 
 export default function Hero({ content }) {
@@ -24,9 +29,7 @@ export default function Hero({ content }) {
   const showHeroPlatforms = content.showHeroPlatforms !== false;
   const showHeroCommunity = content.showHeroCommunity !== false;
   const isMournReleased = timeUntilMournRelease === 0;
-  const heroReleaseStatus = isMournReleased
-    ? "Mourn Out Now"
-    : `Mourn drops in ${formatCountdown(timeUntilMournRelease)}`;
+  const countdownParts = getCountdownParts(timeUntilMournRelease);
 
   useEffect(() => {
     const updateCountdown = () => {
@@ -203,10 +206,31 @@ export default function Hero({ content }) {
             <p className="text-soft-glow text-2xl font-black uppercase tracking-[0.16em] text-white sm:text-3xl">
               {content.heroTeaserTitle}
             </p>
-            {content.heroTeaserStatus ? (
+            {content.heroTeaserStatus && isMournReleased ? (
               <p className="mt-2 text-[0.78rem] font-bold uppercase tracking-[0.42em] text-[#d94a4a] sm:text-[0.82rem]">
-                {heroReleaseStatus}
+                Mourn Out Now
               </p>
+            ) : null}
+            {content.heroTeaserStatus && !isMournReleased ? (
+              <div
+                className="mt-5 flex w-full max-w-xl flex-wrap items-stretch justify-center gap-2 rounded-2xl border border-white/15 bg-black/55 p-2 shadow-[0_14px_40px_rgba(0,0,0,0.35)] backdrop-blur-sm sm:flex-nowrap sm:gap-3 sm:p-3"
+                aria-label="Time until Mourn releases"
+                role="timer"
+              >
+                {countdownParts.map((part) => (
+                  <div
+                    key={part.label}
+                    className="min-w-[4.8rem] flex-1 rounded-xl border border-white/10 bg-black/45 px-3 py-3 text-center sm:min-w-0"
+                  >
+                    <span className="block text-3xl font-black leading-none tracking-normal text-white sm:text-4xl">
+                      {part.value}
+                    </span>
+                    <span className="mt-2 block text-[0.62rem] font-bold uppercase tracking-[0.12em] text-stone-300">
+                      {part.label}
+                    </span>
+                  </div>
+                ))}
+              </div>
             ) : null}
           </div>
         ) : null}
