@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-const MOURN_RELEASE_TIME = new Date("2026-10-02T00:00:00-04:00").getTime();
+const ROMS_RELEASE_TIME = new Date("2026-11-01T00:00:00-04:00").getTime();
 
 function getCountdownParts(milliseconds) {
   const totalSeconds = Math.max(0, Math.floor(milliseconds / 1000));
@@ -22,23 +22,23 @@ export default function Hero({ content }) {
   const [isMuted, setIsMuted] = useState(true);
   const [showVideo, setShowVideo] = useState(false);
   const [isSocialsOpen, setIsSocialsOpen] = useState(false);
-  const [timeUntilMournRelease, setTimeUntilMournRelease] = useState(() =>
-    Math.max(0, MOURN_RELEASE_TIME - Date.now()),
+  const [timeUntilRomsRelease, setTimeUntilRomsRelease] = useState(() =>
+    Math.max(0, ROMS_RELEASE_TIME - Date.now()),
   );
   const showHeroPromo = content.showHeroPromo !== false;
   const showHeroPlatforms = content.showHeroPlatforms !== false;
   const showHeroCommunity = content.showHeroCommunity !== false;
-  const isMournReleased = timeUntilMournRelease === 0;
-  const countdownParts = getCountdownParts(timeUntilMournRelease);
-  const hasMournTrackLinks = content.mournTrackLinks?.length === content.heroReleaseLinks?.length
-    && content.mournTrackLinks.every((platform) => platform.href);
-  const heroReleaseLinks = isMournReleased && hasMournTrackLinks
-    ? content.mournTrackLinks
+  const isRomsReleased = timeUntilRomsRelease === 0;
+  const countdownParts = getCountdownParts(timeUntilRomsRelease);
+  const hasRomsTrackLinks = content.romsTrackLinks?.length === content.heroReleaseLinks?.length
+    && content.romsTrackLinks.every((platform) => platform.href);
+  const heroReleaseLinks = isRomsReleased && hasRomsTrackLinks
+    ? content.romsTrackLinks
     : content.heroReleaseLinks;
 
   useEffect(() => {
     const updateCountdown = () => {
-      setTimeUntilMournRelease(Math.max(0, MOURN_RELEASE_TIME - Date.now()));
+      setTimeUntilRomsRelease(Math.max(0, ROMS_RELEASE_TIME - Date.now()));
     };
 
     updateCountdown();
@@ -211,15 +211,15 @@ export default function Hero({ content }) {
             <p className="text-soft-glow text-2xl font-black uppercase tracking-[0.16em] text-white sm:text-3xl">
               {content.heroTeaserTitle}
             </p>
-            {content.heroTeaserStatus && isMournReleased ? (
+            {content.heroTeaserStatus && isRomsReleased ? (
               <p className="mt-2 text-[0.78rem] font-bold uppercase tracking-[0.42em] text-[#d94a4a] sm:text-[0.82rem]">
-                Mourn — Out Now
+                {content.heroTeaserStatus}
               </p>
             ) : null}
-            {content.heroTeaserStatus && !isMournReleased ? (
+            {content.heroTeaserStatus && !isRomsReleased ? (
               <div
                 className="mt-5 flex w-full max-w-xl flex-wrap items-stretch justify-center gap-2 rounded-2xl border border-white/15 bg-black/55 p-2 shadow-[0_14px_40px_rgba(0,0,0,0.35)] backdrop-blur-sm sm:flex-nowrap sm:gap-3 sm:p-3"
-                aria-label="Time until Mourn releases"
+                aria-label="Time until R.O.M.S. releases"
                 role="timer"
               >
                 {countdownParts.map((part) => (

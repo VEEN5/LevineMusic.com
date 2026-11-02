@@ -1,5 +1,6 @@
 import temptationsCover from "../assets/temptations-cover-new.jpg";
 import mournCover from "../assets/mourn-cover.jpg";
+import romsCover from "../assets/roms-cover.png";
 
 const releaseLinks = [
   { label: "Spotify", href: "https://open.spotify.com/album/3gqFDs8SUPl3xbqpUkKRS0" },
@@ -22,6 +23,13 @@ const mournTrackLinks = [
   { label: "YouTube", href: "https://youtu.be/_DsX5Mk0UR8?si=1hHmzZABKOjACqF4" },
 ];
 
+const romsTrackLinks = [
+  { label: "Spotify", href: "https://open.spotify.com/album/2RUlTkX1aUIxB8FaZcCo8v" },
+  { label: "Apple Music", href: "https://music.apple.com/us/album/r-o-m-s/6827395828?i=6827395829" },
+  { label: "SoundCloud", href: "https://soundcloud.com/levinesmith/r-o-m-s-ft-sinner" },
+  { label: "YouTube", href: "https://youtu.be/5qSZ68pFnaM" },
+];
+
 const brokenCrownLinks = [
   { label: "Spotify", href: "https://open.spotify.com/album/5PSfdrvqxBOxAlBlgKjjEg" },
   { label: "Apple Music", href: "https://music.apple.com/us/album/broken-crown-single/6789707204" },
@@ -32,30 +40,30 @@ const brokenCrownLinks = [
 // Update this file first when you want to change the artist name, release title, links, or images.
 export const artistContent = {
   artistName: "Levine",
-  currentRelease: "Temptation",
+  currentRelease: "R.O.M.S.",
   heroLine: "",
-  heroTeaserTitle: "Mourn",
-  heroTeaserStatus: "Mourn Drops This Friday",
+  heroTeaserTitle: "R.O.M.S.",
+  heroTeaserStatus: "R.O.M.S. Out Now",
   heroReleaseLinks: artistProfileLinks,
+  romsTrackLinks,
   mournTrackLinks,
   heroMusicLabel: "Levine's Music",
   listenNowUrl: "https://linktr.ee/LevineSmith",
   spotifyUrl: releaseLinks[0].href,
   platformLinks: releaseLinks,
-  heroVideo: "/mourn-hero.mp4",
+  heroVideo: "/roms-hero.mp4",
   heroImage: "",
   showHeroPromo: false,
   showHeroPlatforms: false,
   showHeroCommunity: false,
   music: {
     eyebrow: "Latest Release",
-    title: "Temptation",
-    description:
-      "Levine - I do not think the music world is dark. I think where people come from is what makes their music dark. Life is fun, but it has a dark side too, and I think that is what makes it relatable. We have all been through things. Hope you enjoy.",
-    backgroundVideo: "/hero-walk.mp4",
-    backgroundImage: temptationsCover,
-    coverArt: temptationsCover,
-    platformLinks: releaseLinks,
+    title: "R.O.M.S.",
+    description: "",
+    backgroundVideo: "/roms-hero.mp4",
+    backgroundImage: romsCover,
+    coverArt: romsCover,
+    platformLinks: romsTrackLinks,
     community: {
       label: "Join the Discord",
       href: "https://discord.gg/USee37HxBa",
@@ -81,6 +89,16 @@ export const artistContent = {
       items: [],
     },
     releases: [
+      {
+        title: "R.O.M.S.",
+        subtitle: "Music",
+        description: "",
+        backgroundImage: romsCover,
+        backgroundVideo: "/roms-hero.mp4",
+        coverArt: romsCover,
+        watermark: "R.O.M.S.",
+        platformLinks: romsTrackLinks,
+      },
       {
         title: "Temptation",
         subtitle: "Music",
